@@ -1,6 +1,6 @@
-import MainBar from "./components/MainBar"
-import Marquee from "./components/Marquee"
-import Navbar from "./components/Navbar"
+import MainBar from "./components/MainBar/MainBar"
+import Marquee from "./components/Marquee/Marquee"
+import Navbar from "./components/NavBar/Navbar"
 
 function App() {
   return (
