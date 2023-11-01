@@ -1,5 +1,10 @@
-import FourCardsList from "./FourCardsList"
-import TwoCardsList from "./TwoCardsList"
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable no-unused-vars */
+import MainBar from "./components/MainBar/MainBar"
+import Marquee from "./components/Marquee/Marquee"
+import Navbar from "./components/NavBar/Navbar"
+import FourCardsList from "./components/FourCardsList"
+import TwoCardsList from "./components/TwoCardsList"
 
 const App = () => {
   const products = [
@@ -49,6 +54,11 @@ const App = () => {
 
   return (
     <>
+      <div className="bg-customYellow">
+        <Marquee />
+        <MainBar />
+        <Navbar />
+      </div>
       <TwoCardsList products={products} />
       <FourCardsList products={products} />
     </>
