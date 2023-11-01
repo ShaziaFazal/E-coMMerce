@@ -1,25 +1,15 @@
-import colors from 'tailwindcss/colors';
-
-export const content = ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"];
-export const mode = 'jit';
-export const theme = {
-  extend: {
-    animation: {
-      marquee: 'marquee 15s linear infinite',
-    }, 
-    colors: {
-      customPurple: '#1B7979',
-      customYellow: '#61346B',
-      customPlum: '#E6A1D7'
-
-    },
-    keyframes: {
-      marquee: {
-        '0%': { transform: 'translateX(200%)' },
-        '100%': { transform: 'translateX(-100%)' },
+/* eslint-disable no-undef */
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      gridTemplateRows: {
+        '[auto,auto,1fr]': 'auto auto 1fr',
       },
     },
   },
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ]
 };
-export const variants = {};
-export const plugins = [];
