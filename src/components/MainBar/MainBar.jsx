@@ -1,10 +1,19 @@
 import { useState } from "react";
-import Modal from "../Modal/modal";
+import Model from "../Model/model";
 
 const MainBar = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [data, setData] = useState({ username: "", email: "", password: "" });
+  const [isOpen, setIsOpen] = useState(false);
+  const closeSignUpModal = () => {
+    setIsOpen(false);
+  };
+
+  const handleClick = () => {
+    setIsOpen(true);
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -25,14 +34,24 @@ const MainBar = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.handleLogIn && props.handleLogIn(email, password);
-    // You can add your login logic here, for example, sending a request to your server.
-    // console.log("Email:", email);
-    // console.log("Password:", password);
+    setIsModalOpen(false);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  };
+
+  const handleSubmitSignUp = (e) => {
+    e.preventDefault();
+    props.handleSignUp && props.handleSignUp(data);
+    setData({ username: "", email: "", password: "" });
+    setIsOpen(false);
   };
 
   const LoginModal = () => {
     return (
-      <Modal className="h-auto" isOpen={isModalOpen} onClose={closeModal}>
+      <Model className="h-auto" isOpen={isModalOpen} onClose={closeModal}>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
@@ -73,13 +92,85 @@ const MainBar = (props) => {
             >
               Login
             </button>
-            <p className="mt-4 text-center" ><span onClick={()=>props.handleSignUp} className="text-blue-600 " >Sign Up</span>, If you are a new User</p>
+            <p className="mt-4 text-center">
+              <span onClick={handleClick} className="text-blue-600 ">
+                Sign Up
+              </span>
+              , If you are a new User
+            </p>
           </div>
         </form>
-      </Modal>
+      </Model>
     );
   };
 
+  const SignupModal = () => {
+    return (
+      <Model className="h-auto" isOpen={isOpen} onClose={closeSignUpModal}>
+        <form onSubmit={handleSubmitSignUp}>
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="border rounded w-full py-2 px-3"
+              placeholder="Enter your email"
+              value={data.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="username"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              User Name
+            </label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              className="border rounded w-full py-2 px-3"
+              placeholder="Enter your User Name"
+              value={data.username}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="border rounded w-full py-2 px-3"
+              placeholder="Enter your password"
+              value={data.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-4">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </Model>
+    );
+  };
   return (
     <nav>
       <div className=" p-6">
@@ -120,6 +211,7 @@ const MainBar = (props) => {
             </button>
 
             {LoginModal()}
+            {SignupModal()}
           </div>
         </div>
       </div>
