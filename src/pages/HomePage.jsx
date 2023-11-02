@@ -2,7 +2,7 @@ import DefaultLayout from "../components/layouts/DefaultLayout";
 import FourCardsList from "../components/FourCardsList";
 import TwoCardsList from "../components/TwoCardsList";
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
-import Modal from "../components/Modal/modal";
+import Modal from "../components/Model/model";
 import { useState } from "react";
 
 const products = [

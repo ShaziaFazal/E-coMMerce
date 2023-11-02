@@ -1,79 +1,48 @@
+import {useState} from "react";
+import Dropdown from "../Dropdown/Dropdown";
+
 const Navbar = () => {
+    const [items, setItems] =useState("");
+    const [acc,setAcc] =useState("");
+    const [deco, setDeco] = useState("");
+    const [gro, setGro] = useState("")
+    
   return (
     <div>
-      <nav>
-        <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-center  bg-customPurple p-6">
-          <div>
-            <button className="peer px-5 py-2 bg-green-600 hover:bg-green-700 text-white mr-5">
-              Ladies Fashion
-            </button>
+        <nav >
+            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-center my-2 ">
+            
+            <Dropdown 
+            value={items}
+            onChange={(newValue) => setItems(newValue)}
+            placeholder="Wear"
+            options={["Princes", "Kings", "Queens"]} />
 
-            <div className="hidden peer-hover:flex hover:flex flex-col bg-white drop-shadow-lg">
-              <a className="px-5 py-3 hover:bg-gray-200" href="#">
-                About Us
-              </a>
-              <a className="px-5 py-3 hover:bg-gray-200" href="#">
-                Contact Us
-              </a>
-              <a className="px-5 py-3 hover:bg-gray-200" href="#">
-                Privacy Policy
-              </a>
-            </div>
-          </div>
+      
 
-          <div>
-            <button className="peer px-5 py-2 bg-green-600 hover:bg-green-700 text-white mr-5">
-              Mens Fashion
-            </button>
+        <Dropdown 
+            value={acc}
+            onChange={(newValue) => setAcc(newValue)}
+            placeholder="Accessories"
+            options={["Mobiles", "Vehicles", "Shoes"]} />
 
-            <div className="hidden peer-hover:flex hover:flex flex-col bg-white drop-shadow-lg">
-              <a className=" hover:bg-gray-200" href="#">
-                About Us
-              </a>
-              <a className=" hover:bg-gray-200" href="#">
-                Contact Us
-              </a>
-              <a className=" hover:bg-gray-200" href="#">
-                Privacy Policy
-              </a>
-            </div>
-          </div>
-          <div>
-            <button className="peer px-5 py-2 bg-green-600 hover:bg-green-700 text-white mr-5">
-              Kids Wear
-            </button>
 
-            <div className="hidden peer-hover:flex hover:flex flex-col bg-white drop-shadow-lg">
-              <a className=" hover:bg-gray-200" href="#">
-                About Us
-              </a>
-              <a className=" hover:bg-gray-200" href="#">
-                Contact Us
-              </a>
-              <a className=" hover:bg-gray-200" href="#">
-                Privacy Policy
-              </a>
-            </div>
-          </div>
-          <div>
-            <button className="peer px-5 py-2 bg-green-600 hover:bg-green-700 text-white mr-5">
-              Accessories
-            </button>
+            <Dropdown 
+            value={deco}
+            onChange={(newValue) => setDeco(newValue)}
+            placeholder="Home Decor"
+            options={["Guantlets", "Lights", "Carpets"]} />
 
-            <div className="hidden peer-hover:flex hover:flex flex-col bg-white drop-shadow-lg">
-              <a className="hover:bg-gray-200" href="#">
-                About Us
-              </a>
-              <a className="hover:bg-gray-200" href="#">
-                Contact Us
-              </a>
-              <a className="hover:bg-gray-200" href="#">
-                Privacy Policy
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
+        
+            <Dropdown 
+            value={gro}
+            onChange={(newValue) => setGro(newValue)}
+            placeholder="Grocery"
+            options={["Laundry", "Must Haves", "Sweets"]} />
+               
+            </div>  
+            
+        </nav>
     </div>
   );
 };
