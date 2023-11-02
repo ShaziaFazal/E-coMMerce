@@ -2,6 +2,8 @@ import DefaultLayout from "../components/layouts/DefaultLayout";
 import FourCardsList from "../components/FourCardsList";
 import TwoCardsList from "../components/TwoCardsList";
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
+import Modal from "../components/Modal/modal";
+import { useState } from "react";
 
 const products = [
   {
@@ -64,6 +66,7 @@ const HomePage = () => {
   return (
     <DefaultLayout>
       <Breadcrumb showDivider={true} />
+
       <TwoCardsList products={products} />
       <FourCardsList products={products} />
     </DefaultLayout>
