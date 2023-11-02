@@ -26,8 +26,8 @@ const MainBar = (props) => {
     e.preventDefault();
     props.handleLogIn && props.handleLogIn(email, password);
     // You can add your login logic here, for example, sending a request to your server.
-    console.log("Email:", email);
-    console.log("Password:", password);
+    // console.log("Email:", email);
+    // console.log("Password:", password);
   };
 
   const LoginModal = () => {
@@ -73,6 +73,7 @@ const MainBar = (props) => {
             >
               Login
             </button>
+            <p className="mt-4 text-center" ><span onClick={()=>props.handleSignUp} className="text-blue-600 " >Sign Up</span>, If you are a new User</p>
           </div>
         </form>
       </Modal>
