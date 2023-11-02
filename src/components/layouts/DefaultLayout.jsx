@@ -25,10 +25,14 @@ const DefaultLayout = (props) => {
 
   return (
     <div>
-      <Marquee />
-      <MainBar handleLogIn={handleLogIn} handleSignUp={handleSignUp} />
-      <Navbar />
-      <div>{props.children}</div>
+      <div className="fixed z-10 w-full">
+        <Marquee />
+        <MainBar handleLogIn={handleLogIn} handleSignUp={handleSignUp} />
+      </div>
+      <div className="pt-[160px]">
+        <Navbar />
+        <div>{props.children}</div>
+      </div>
     </div>
   );
 };
