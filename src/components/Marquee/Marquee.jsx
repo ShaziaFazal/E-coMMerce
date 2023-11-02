@@ -1,21 +1,26 @@
-
-
 const Marquee = () => {
   return (
-    <div>
-        <div className="flex justify-between ml-8 mr-8">
-            <div className='  rounded-md'>UAN # +92 300-00-00-00-1</div>
-            <div className=' rounded-md' >Free Shipping Above $150 on International Orders</div>
-            <div className=' rounded-md' ><a href="mailto:webmaster@example.com">CustomerCase@Store.pk</a></div>
+    <div className="bg-[#eff0e6]">
+      <div className="flex justify-between px-8 py-2 border-b border-gray-300">
+        <div className="  rounded-md">UAN # +92 300-00-00-00-1</div>
+        <div className=" rounded-md">
+          Free Shipping Above $150 on International Orders
         </div>
-        <div className="relative flex overflow-x-hidden">
-            <div className="py-2 animate-marquee whitespace-nowrap">
-                <span className="text-l ">Dear Valued Customer your Order will Be Dispatched within 05 Working Days. Thank You!</span>
-            </div>
+        <div className=" rounded-md">
+          <a href="mailto:webmaster@example.com">CustomerCase@Store.pk</a>
         </div>
+      </div>
 
+      <div className="text-center text-gray-600 font-semibold font-lato font-weight-600 text-xs tracking-wider py-2 ">
+        <marquee>
+          <p>
+            Dear Valued Customer your Order will Be Dispatched within 05 Working
+            Days. Thank You!
+          </p>
+        </marquee>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Marquee
+export default Marquee;

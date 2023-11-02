@@ -18,8 +18,7 @@ const Navbar = () => {
             placeholder="Wear"
             options={["Princes", "Kings", "Queens"]} />
 
-
-       
+      
 
         <Dropdown 
             value={acc}
@@ -45,7 +44,7 @@ const Navbar = () => {
             
         </nav>
     </div>
-      )
-    }
-    
-    export default Navbar
+  );
+};
+
+export default Navbar;
