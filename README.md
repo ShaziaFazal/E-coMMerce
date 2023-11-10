@@ -6,3 +6,16 @@ Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+<!-- wire-frame -->
+
+Figure out what pages we need, like the homepage, product pages, and checkout.
+Create a basic layout for each page
+
+- create react Project
+- tailwind configuration
+- create folder structure
+
+Implement authentication mechanisms (e.g., JWT or sessions).
+Create an API endpoint for login.
+Use secure password hashing (e.g., bcrypt).
