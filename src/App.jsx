@@ -6,6 +6,8 @@ import AdminOrders from "./pages/AdminOrder";
 import AdminUsers from "./pages/AdminUser";
 import AdminDashboard from "./pages/AdminDashboard";
 
+import Checkout from "./pages/cart/Checkout";
+import ShopingCard from "./pages/cart/ShopingCard";
 const App = () => {
   return (
     <>
@@ -17,6 +19,9 @@ const App = () => {
           <Route path='/admin/dashboard/customers' element={<AdminUsers />} />
           <Route path='/admin/dashboard/products' element={<AdminProducts />} />
           <Route path='/admin/dashboard/orders' element={<AdminOrders />} />
+          <Route path="/detail/:id" element={<DetailsPage />} />
+          <Route path="/cart/shoppingcart" element={<ShopingCard />} />
+          <Route path="/cart/checkout" element={<Checkout />} />
         </Routes>
       </BrowserRouter>
     </>
