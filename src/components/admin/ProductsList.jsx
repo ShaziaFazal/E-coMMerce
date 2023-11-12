@@ -10,7 +10,7 @@ const ProductList = (props) => {
                     <div className="px-4 sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
-                                <h1 className="text-base font-semibold leading-6 text-gray-900">Users</h1>
+                                <h1 className="text-base font-semibold leading-6 text-gray-900">Products</h1>
                                 <p className="mt-2 text-sm text-gray-700">
                                     A list of all the products in your account including their title, category, price and status.
                                 </p>
