@@ -28,7 +28,7 @@ const DefaultLayout = (props) => {
       });
   };
 
-  const handleSignUp = async (data) => {
+  const handleSignUp = (data) => {
     try {
       axios
         .post("http://localhost:4000/signinSystem/signup/", data)
