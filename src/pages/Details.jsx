@@ -29,7 +29,6 @@ const productDetail = [
 const Details = () => {
   return (
     <DefaultLayout>
-      <p>details page here</p>
       {productDetail.map((product) => (
         <div key={product.id}>
           <ProductSection product={product} />
