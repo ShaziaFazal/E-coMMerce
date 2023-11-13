@@ -3,12 +3,8 @@ import MainBar from "../MainBar/MainBar";
 import Marquee from "../Marquee/Marquee";
 import Navbar from "../NavBar/Navbar";
 import axios from "axios";
-import { setCurrentUser } from "../../store/User.reducer";
-import { useDispatch } from "react-redux";
 
 const DefaultLayout = (props) => {
-  const dispatch = useDispatch();
-
   const handleLogIn = async (email, password) => {
     await axios
       .post("http://localhost:4000/signinSystem/signin/", {
@@ -17,15 +13,16 @@ const DefaultLayout = (props) => {
       })
       .then((response) => {
         console.log(response);
-        dispatch(
-          setCurrentUser({
-            user: {
-              ...response.data.userData,
-            },
-            isAuthenticated: true,
-          })
+        localStorage.setItem("token", response.data.access_token);
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify(response.data.userData)
         );
       });
+  };
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
   };
 
   const handleSignUp = (data) => {
@@ -44,7 +41,11 @@ const DefaultLayout = (props) => {
     <div>
       <div className="fixed z-10 w-full">
         <Marquee />
-        <MainBar handleLogIn={handleLogIn} handleSignUp={handleSignUp} />
+        <MainBar
+          handleLogOut={handleLogOut}
+          handleLogIn={handleLogIn}
+          handleSignUp={handleSignUp}
+        />
       </div>
       <div className="pt-[160px]">
         <Navbar />
