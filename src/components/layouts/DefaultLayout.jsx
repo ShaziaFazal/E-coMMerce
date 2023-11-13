@@ -3,12 +3,8 @@ import MainBar from "../MainBar/MainBar";
 import Marquee from "../Marquee/Marquee";
 import Navbar from "../NavBar/Navbar";
 import axios from "axios";
-import { setCurrentUser } from "../../store/User.reducer";
-import { useDispatch } from "react-redux";
 
 const DefaultLayout = (props) => {
-  const dispatch = useDispatch();
-
   const handleLogIn = async (email, password) => {
     await axios
       .post("http://localhost:4000/signinSystem/signin/", {
@@ -21,14 +17,6 @@ const DefaultLayout = (props) => {
         localStorage.setItem(
           "currentUser",
           JSON.stringify(response.data.userData)
-        );
-        dispatch(
-          setCurrentUser({
-            user: {
-              ...response.data.userData,
-            },
-            isAuthenticated: true,
-          })
         );
       });
   };
