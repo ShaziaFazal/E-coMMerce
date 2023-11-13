@@ -19,6 +19,7 @@ const addProduct = async (req, res) => {
       note,
       images,
       discount,
+      category,
     } = req.body;
     const newProduct = new Product({
       title,
@@ -37,6 +38,7 @@ const addProduct = async (req, res) => {
       note,
       images,
       discount,
+      category,
     });
     await newProduct.save();
     res.status(201).json(newProduct);
@@ -54,15 +56,6 @@ const getProducts = async (req, res) => {
   }
 };
 // gets product by id
-// const getProductById = async (req, res) => {
-//   const { id } = req.body;
-//   try {
-//     const response = await Product.find({ _id: id });
-//     res.status(201).send(response);
-//   } catch (error) {
-//     res.status(500).send({ error: error.message });
-//   }
-// };
 const getProductById = async (req, res) => {
   const { _id } = req.query; // Accessing the id from the query parameters
 
@@ -79,4 +72,40 @@ const getProductById = async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 };
-module.exports = { addProduct, getProducts, getProductById };
+//gets producrt in ascending order of data lower price to highest
+const getProductsLowerToHigherPrice = async (req, res) => {
+  try {
+    const response = await Product.find().sort({ price: 1 });
+    res.status(201).send(response);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+//gets producrt in descending order of data highest to lower price
+const getProductsHigherToLowerPrice = async (req, res) => {
+  try {
+    const response = await Product.find().sort({ price: -1 });
+    res.status(201).send(response);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+//gets all data according to category
+const getProductsByCategory = async (req, res) => {
+  const { category } = req.body;
+  try {
+    const response = await Product.find({ category: category });
+    res.status(201).send(response);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+
+module.exports = {
+  addProduct,
+  getProducts,
+  getProductById,
+  getProductsLowerToHigherPrice,
+  getProductsHigherToLowerPrice,
+  getProductsByCategory,
+};

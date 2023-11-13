@@ -60,5 +60,14 @@ const LoginUser = async (req, res) => {
     res.status(500).json({ message: "Error in controller" });
   }
 };
+//gets all the users in schema
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await loginTest.find({ role: "Customer" });
+    res.status(201).send(allUsers);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
 
-module.exports = { SignupUser, LoginUser };
+module.exports = { SignupUser, LoginUser, getAllUsers };
