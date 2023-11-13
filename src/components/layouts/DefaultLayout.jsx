@@ -17,6 +17,11 @@ const DefaultLayout = (props) => {
       })
       .then((response) => {
         console.log(response);
+        localStorage.setItem("token", response.data.access_token);
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify(response.data.userData)
+        );
         dispatch(
           setCurrentUser({
             user: {
@@ -26,6 +31,10 @@ const DefaultLayout = (props) => {
           })
         );
       });
+  };
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
   };
 
   const handleSignUp = (data) => {
@@ -44,7 +53,11 @@ const DefaultLayout = (props) => {
     <div>
       <div className="fixed z-10 w-full">
         <Marquee />
-        <MainBar handleLogIn={handleLogIn} handleSignUp={handleSignUp} />
+        <MainBar
+          handleLogOut={handleLogOut}
+          handleLogIn={handleLogIn}
+          handleSignUp={handleSignUp}
+        />
       </div>
       <div className="pt-[160px]">
         <Navbar />

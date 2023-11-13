@@ -1,7 +1,9 @@
 import ProductSection from "../components/ProductSection/ProductSection";
 import DefaultLayout from "../components/layouts/DefaultLayout";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const productDetail = [
+const productDetails = [
   {
     title: "Embroidered Shirt With Dupatta",
     id: `923948739879823749-Peach-37846723`,
@@ -27,9 +29,21 @@ const productDetail = [
 ];
 
 const Details = () => {
+  const [productDetail, setProductDetail] = useState();
+  useEffect(() => {
+    try {
+      axios
+        .get("http://localhost:4000/productInfo/getProductById")
+        .then((response) => {
+          console.log(response);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   return (
     <DefaultLayout>
-      {productDetail.map((product) => (
+      {productDetails.map((product) => (
         <div key={product.id}>
           <ProductSection product={product} />
         </div>

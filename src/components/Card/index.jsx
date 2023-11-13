@@ -21,17 +21,17 @@ const Card = (props) => {
               className=" h-full w-full object-cover object-center"
             />
           </div>
-          {props.product.stock !== "In Stock" && (
+          {props.product.stock === undefined && (
             <div className="mx-2 my-2 absolute top-2 left-2 rounded-bl-lg rounded-br-lg sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-24 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg">
               <p className="mt-6 flex px-2 flex-shrink-0 items-center justify-center rounded-md  bg-black text-base font-small text-white sm:mt-0 lg:ml-0 lg:w-full">
                 Sold Out
               </p>
             </div>
           )}
-          {props.product.stock === "In Stock" && (
+          {props.product.discount && (
             <div className="mx-2 my-2 absolute inset-x-0 bottom-0 rounded-bl-lg rounded-br-lg sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-24 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg">
               <p className="mt-6 flex px-2 flex-shrink-0 items-center justify-center rounded-md  bg-red-600 text-base font-small text-white sm:ml-8 sm:mt-0 lg:ml-0 lg:w-full">
-                30% off
+                {props.product.discount}
               </p>
             </div>
           )}
