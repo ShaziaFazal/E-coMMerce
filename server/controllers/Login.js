@@ -1,9 +1,8 @@
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const loginTest = require('../models/Login')
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const loginTest = require("../models/Login");
 const dotenv = require("dotenv");
 dotenv.config();
-
 
 const SignupUser = async (req, res) => {
   try {
@@ -27,15 +26,14 @@ const LoginUser = async (req, res) => {
     const user = await loginTest.findOne({ email: email });
     if (user && (await bcrypt.compare(password, user.password))) {
       {
-        if(user.role==="Admin")
-        {
-          console.log(user.role); 
+        if (user.role === "Admin") {
+          console.log(user.role);
+        } else {
+          console.log(user.role);
         }
-        else
-        {
-          console.log(user.role)
-        }
-        res.status(200).json({ message: `Login Sucessfully!!`, userData: user });
+        res
+          .status(200)
+          .json({ message: `Login Sucessfully!!`, userData: user });
       }
     } else {
       res.status(401).json({ error: "Login Failed!!" });
@@ -44,5 +42,14 @@ const LoginUser = async (req, res) => {
     res.status(500).json({ message: "Error in controller" });
   }
 };
+//gets all the users in schema
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await loginTest.find({ role: "Customer" });
+    res.status(201).send(allUsers);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
 
-module.exports = { SignupUser, LoginUser };
+module.exports = { SignupUser, LoginUser, getAllUsers };

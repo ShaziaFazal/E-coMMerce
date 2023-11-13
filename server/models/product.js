@@ -67,6 +67,10 @@ const product = new mongoose.Schema({
   discount: {
     type: String,
   },
+  category: {
+    type: String,
+    required: true,
+  },
 });
 
 const Product = mongoose.model("Product", product);
