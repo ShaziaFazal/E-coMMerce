@@ -54,7 +54,6 @@ export const ProductDetail = ({ product }) => {
     setNoteVisible(false);
   };
 
-  console.log(product, "kjhkjhkjh");
   return (
     <div className="tracking-wide w-[600px]">
       <h1 className="font-bold text-3xl pb-3">{product.title}</h1>
@@ -63,17 +62,17 @@ export const ProductDetail = ({ product }) => {
       <s>Rs 11,280</s>
       <h2 className="inline ml-20">Availability:{product.availability}</h2>
       <hr className="border-black" />
-      <h3 className="py-4">Size:</h3>
-      <div className="flex flex-row gap-6 ml-12">
-        {Array.isArray(product.size) &&
-          product.size.map((size) => (
-            <p key={size} className="bg-zinc-200 p-5">
-              {size}
-            </p>
-          ))}
+      <div className="flex flex-row gap-6 ml-12 items-center my-2">
+        <h3>Size:</h3>
+
+        {product.sizes.map((size) => (
+          <p key={size._id} className="bg-zinc-200 px-2 border text-black">
+            {size.size}
+          </p>
+        ))}
       </div>
       <div className="py-5 mt-10">
-        <label for="quantity">Quantity:</label>
+        <label>Quantity:</label>
         <button onClick={handleDecrease} className="border-2 py-2 px-3 ml-10">
           -
         </button>

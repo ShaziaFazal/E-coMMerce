@@ -1,9 +1,11 @@
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const loginTest = require('../models/Login')
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const loginTest = require("../models/Login");
 const dotenv = require("dotenv");
+
 dotenv.config();
 
+const JWT_SECRET = "dfsdfsdfadsfsadfadsfads";
 
 const SignupUser = async (req, res) => {
   try {
@@ -15,7 +17,15 @@ const SignupUser = async (req, res) => {
       password: hashPassword,
     });
     await loginUser.save();
-    res.status(201).json({ message: "User created !" });
+
+    const payload = {
+      email,
+      date: Date.now(),
+    };
+    const token = jwt.sign(payload, JWT_SECRET);
+
+    console.log(token, "tokenaaaaaaaaaaaaaaa");
+    res.status(201).json({ message: "User created !", access_token: token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -27,15 +37,21 @@ const LoginUser = async (req, res) => {
     const user = await loginTest.findOne({ email: email });
     if (user && (await bcrypt.compare(password, user.password))) {
       {
-        if(user.role==="Admin")
-        {
-          console.log(user.role); 
+        const payload = {
+          email,
+          date: Date.now(),
+        };
+        const token = jwt.sign(payload, JWT_SECRET);
+        if (user.role === "Admin") {
+          console.log(user.role);
+        } else {
+          console.log(user.role);
         }
-        else
-        {
-          console.log(user.role)
-        }
-        res.status(200).json({ message: `Login Sucessfully!!`, userData: user });
+        res.status(200).json({
+          message: `Login Sucessfully!!`,
+          access_token: token,
+          userData: user,
+        });
       }
     } else {
       res.status(401).json({ error: "Login Failed!!" });

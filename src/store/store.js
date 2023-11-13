@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./User.reducer";
+import rootReducer from "./rootReducer";
 
-const reducers = {
-  user: userReducer,
-};
-
-export default configureStore({
-  reducer: reducers,
+const store = configureStore({
+  reducer: rootReducer,
+  // other middleware can be added here
 });
+
+export default store;
