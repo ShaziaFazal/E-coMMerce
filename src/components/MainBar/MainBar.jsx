@@ -228,9 +228,18 @@ const MainBar = (props) => {
               </svg>
             </span>
           </div>
-          <button onClick={openModal} className="bg-none pb-3 text-black">
-            Login
-          </button>
+          {localStorage.getItem("token") ? (
+            <button
+              onClick={props.handleLogOut}
+              className="bg-none pb-3 text-black"
+            >
+              Log Out
+            </button>
+          ) : (
+            <button onClick={openModal} className="bg-none pb-3 text-black">
+              Login
+            </button>
+          )}
 
           {LoginModal()}
           {SignupModal()}
