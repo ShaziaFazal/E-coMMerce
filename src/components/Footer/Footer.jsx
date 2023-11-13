@@ -53,6 +53,16 @@ const Footer = () => {
             <h3 className="tracki uppercase dark:text-gray-50">Company</h3>
             <ul className="space-y-1">
               <li>
+                <a rel="noopener noreferrer" href="/aboutus">
+                  About us
+                </a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" href="/contactus">
+                  Contact us
+                </a>
+              </li>
+              <li>
                 <a rel="noopener noreferrer" href="#">
                   Privacy
                 </a>
