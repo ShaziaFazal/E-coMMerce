@@ -1,6 +1,6 @@
 import ProductSection from "../components/ProductSection/ProductSection";
 import DefaultLayout from "../components/layouts/DefaultLayout";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../store/productActions";
 import { useParams } from "react-router-dom";

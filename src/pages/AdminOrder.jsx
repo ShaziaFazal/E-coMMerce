@@ -1,18 +1,22 @@
+import { useState, useEffect } from 'react'
 import AdminSideBar from "../components/admin/AdminSidebar"
 import OrderList from "../components/admin/OrdersList"
-
-const orders = [
-    {
-        title: 'Dupatta',
-        category: 'Women Dress',
-        customer: 'Lindsay',
-        date: '11-12-2023',
-        image:
-            'https://beechtree.pk/cdn/shop/files/BT1W23U28_1_720x.jpg?v=1698666626',
-    }
-]
+import axios from 'axios'
 
 export default function AdminOrders() {
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        try {
+            axios
+                .get("http://localhost:4000/orderInfo/orders")
+                .then((response) => {
+                    setOrders(response.data);
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
 
     return (
         <>

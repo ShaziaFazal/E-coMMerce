@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { PlusIcon } from "@heroicons/react/solid";
+import { PlusIcon } from "@heroicons/react/20/solid";
 
 const AddProductForm = () => {
   const { register, handleSubmit } = useForm();
@@ -16,6 +16,7 @@ const AddProductForm = () => {
     setImage(file);
   };
 
+  console.log('hitting form')
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto mt-8">
       <div className="mb-4">
