@@ -103,7 +103,7 @@ export const ProductDetail = ({ product, handleClick }) => {
         <Button
           handleClick={(e) => {
             e.preventDefault;
-            handleClick(quantity, product.id, selectedSize);
+            handleClick(quantity, product._id, selectedSize);
           }}
           title={"Add To Cart"}
         />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ProductDetail from "../ProductDetail/ProductDetail";
+import axios from "axios";
 
 export const ProductSection = ({ product }) => {
   const [displayImg, setDisplayImg] = useState(product?.images[0].src);
@@ -8,8 +9,24 @@ export const ProductSection = ({ product }) => {
   const handleClick = (e) => {
     setDisplayImg(e.target.src);
   };
-  const handleAddToCart = (quantity, productId, selectedSize) => {
+  const handleAddToCart = async (quantity, productId, selectedSize) => {
     if (currentUser) {
+      if (selectedSize === null) {
+        alert("please select size");
+        return;
+      }
+      const responce = await axios.post(
+        "http://localhost:4000/cart/addToCart",
+        {
+          user_id: currentUser._id,
+          product_id: productId,
+          quantity: quantity,
+          selectedSize: parseInt(selectedSize),
+        }
+      );
+      if (responce.status === 201) {
+        alert(responce.data.message);
+      }
       const url = `/cart/shoppingcart?productId=${productId}&quantity=${quantity}&size=${selectedSize}`;
       window.location.href = url;
     } else {

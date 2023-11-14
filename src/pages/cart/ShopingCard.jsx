@@ -1,29 +1,20 @@
 import Footer from "../../components/Footer/Footer";
 import Marquee from "../../components/Marquee/Marquee";
 import ShoppingCart from "../../components/ShopingCart/ShopingCart";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 function ShopingCard() {
-  const cartItems = [
-    {
-      id: 1,
-      name: "Throwback Hip Bag",
-      price: 90.0,
-      quantity: 1,
-      src: "https://media.istockphoto.com/id/1365118618/photo/blue-fashion-purse-handbag-on-white-background-isolated.webp?b=1&s=170667a&w=0&k=20&c=R6fr0o1pCkSFP8Q6q84M8NraLXXlMHtNG93fx8G_NYY=",
-    },
-    {
-      id: 1,
-      name: "Throwback Hip Bag",
-      price: 90.0,
-      quantity: 1,
-      src: "https://media.istockphoto.com/id/1365118618/photo/blue-fashion-purse-handbag-on-white-background-isolated.webp?b=1&s=170667a&w=0&k=20&c=R6fr0o1pCkSFP8Q6q84M8NraLXXlMHtNG93fx8G_NYY=",
-    },
-    // ... other items
-  ];
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const productId = searchParams.get("productId");
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  const [cartItems, setCartItems] = useState([]);
 
   const subtotal = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => total + item.product_id.price * item.quantity,
     0
   );
 
@@ -40,6 +31,14 @@ function ShopingCard() {
     // Logic to continue shopping
     window.location.href = "/";
   };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/cart/cartitems/${currentUser._id}`)
+      .then((response) => {
+        setCartItems(response.data);
+      });
+  }, [currentUser._id, productId]);
 
   return (
     <div>
