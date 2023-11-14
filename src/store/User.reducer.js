@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuthenticated: false,
@@ -9,7 +9,32 @@ const initialState = {
     role: "",
     username: "",
   },
+  loading: false,
+  feedback:{
+    fullname:"",
+    mail:"",
+    subject:"",
+    message:"",
+  }
 };
+
+export const postFeedback = createAsyncThunk("postFeedback",async(data,rejectWithValue)=>{
+  console.log(data);
+  const response = await fetch("http://localhost:4000/postFeedback/postComment",{
+    method: "POST",
+    headers: {
+      "Content-Type":"application/json",
+  },
+    body: JSON.stringify(data),
+  });
+  try {
+    const result = await response.json();
+    console.log("response from api ",result);
+    return result;
+} catch (error) {
+    return rejectWithValue(error.response);
+}
+})
 
 export const userSlice = createSlice({
   name: "user",
@@ -32,6 +57,17 @@ export const userSlice = createSlice({
       state.user = { ...state.user, ...action.payload };
     },
   },
+  extraReducers:(builder)=>{
+    builder.addCase(postFeedback.pending,(state)=>{
+      state.loading = true;       
+    }).addCase(postFeedback.fulfilled,(state,action)=>{
+      state.loading = false;
+      state.feedback = action.payload;
+    }).addCase(postFeedback.rejected,(state,action)=>{
+      state.loading = false;
+      state.feedback = action.payload
+    })
+  }
 });
 
 export const getCurrentUser = (state) => {

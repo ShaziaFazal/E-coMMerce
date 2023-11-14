@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const loginTest = require('../models/Login')
 const dotenv = require("dotenv");
 dotenv.config();
@@ -44,5 +43,7 @@ const LoginUser = async (req, res) => {
     res.status(500).json({ message: "Error in controller" });
   }
 };
+
+
 
 module.exports = { SignupUser, LoginUser };
