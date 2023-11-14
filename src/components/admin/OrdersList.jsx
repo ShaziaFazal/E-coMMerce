@@ -5,7 +5,7 @@ import React from 'react'
 const OrderList = (props) => {
     return (
         <>
-            <main className=" bg-gray-400 py-10 lg:pl-72">
+            <main className="py-10 lg:pl-72">
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="px-4 sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
@@ -21,7 +21,7 @@ const OrderList = (props) => {
                                 <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                     <table className="min-w-full divide-y divide-gray-300">
                                         <thead>
-                                            <tr className=" bg-gray-400 ">
+                                            <tr>
                                                 <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
                                                     Title
                                                 </th>
