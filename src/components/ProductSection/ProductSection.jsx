@@ -8,10 +8,10 @@ export const ProductSection = ({ product }) => {
   const handleClick = (e) => {
     setDisplayImg(e.target.src);
   };
-  const handleAddToCart = () => {
+  const handleAddToCart = (quantity, productId, selectedSize) => {
     if (currentUser) {
-      // localStorage.setItem("product", JSON.stringify(product));
-      window.location.href = "/cart/shoppingcart";
+      const url = `/cart/shoppingcart?productId=${productId}&quantity=${quantity}&size=${selectedSize}`;
+      window.location.href = url;
     } else {
       window.location.href = "/";
     }

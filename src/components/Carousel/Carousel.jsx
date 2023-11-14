@@ -32,7 +32,7 @@ const Carousel = ({ images, duration, showIndicators, showControls }) => {
       </div>
 
       {showIndicators && (
-        <div className="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+        <div className="absolute  flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
           {images.map((_, index) => (
             <button
               key={index}
@@ -51,7 +51,7 @@ const Carousel = ({ images, duration, showIndicators, showControls }) => {
       {showControls && (
         <>
           <button
-            className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group  focus:outline-none"
+            className="absolute top-0 left-0  flex items-center justify-center h-full px-4 cursor-pointer group  focus:outline-none"
             data-carousel-prev
             onClick={prevSlide}
           >
@@ -72,7 +72,7 @@ const Carousel = ({ images, duration, showIndicators, showControls }) => {
             </svg>
           </button>
           <button
-            className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+            className="absolute top-0 right-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
             data-carousel-next
             onClick={nextSlide}
           >

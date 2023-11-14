@@ -57,11 +57,10 @@ const getProducts = async (req, res) => {
 };
 // gets product by id
 const getProductById = async (req, res) => {
-  const { _id } = req.query; // Accessing the id from the query parameters
-
+  const { id } = req.query; // Accessing the id from the query parameters
   try {
-    const response = await Product.findOne(_id);
-    console.log(response, "response");
+    const response = await Product.findOne({ _id: id });
+
     if (!response) {
       res.status(404).send({ error: "Product not found" });
       return;
