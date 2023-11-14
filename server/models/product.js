@@ -25,7 +25,7 @@ const product = new mongoose.Schema({
   ],
   description: {
     type: String,
-    required: true
+    required: true,
   },
   sizeChart: {
     type: String,
@@ -58,10 +58,12 @@ const product = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: {
-    type: String,
-    required: true,
-  },
+  images: [
+    {
+      src: { type: String, required: true },
+      // alt:{type:String,required:true}
+    },
+  ],
   discount: {
     type: String,
   },

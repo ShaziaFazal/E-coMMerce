@@ -1,14 +1,14 @@
 import { useState } from "react";
 import Model from "../Model/model";
-import Dropdown from "../Dropdown/Dropdown";
 
-const MainBar = (props) => {
+export const MainBar = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [data, setData] = useState({ username: "", email: "", password: "" });
   const [isOpen, setIsOpen] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const access_token = localStorage.getItem("token");
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const closeSignUpModal = () => {
@@ -35,8 +35,7 @@ const MainBar = (props) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     props.handleLogIn && props.handleLogIn(email, password);
     setIsModalOpen(false);
   };
@@ -112,7 +111,7 @@ const MainBar = (props) => {
                 onClick={handleClick}
                 className="text-blue-600 cursor-pointer "
               >
-                Sign In
+                Sign Up
               </span>
             </p>
           </div>
@@ -236,7 +235,7 @@ const MainBar = (props) => {
               </svg>
             </span>
           </div>
-          {localStorage.getItem("token") ? (
+          {currentUser ? (
             <div className="relative ml-3">
               <div>
                 <button
@@ -291,7 +290,7 @@ const MainBar = (props) => {
               Login
             </button>
           )}
-          {currentUser && (
+          {access_token && (
             <a href="/cart/shoppingcart" className="cart-icon">
               <svg
                 width="30"

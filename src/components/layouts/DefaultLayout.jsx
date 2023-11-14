@@ -19,9 +19,11 @@ const DefaultLayout = (props) => {
           JSON.stringify(response.data.userData)
         );
       });
+    window.location.reload();
   };
   const handleLogOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("currentUser");
     window.location.href = "/";
   };
 

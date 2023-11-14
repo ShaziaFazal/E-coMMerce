@@ -18,8 +18,24 @@ function ShopingCard() {
     0
   );
 
-  const handleRemoveItem = (itemId) => {
-    // Logic to remove item from the cart
+  const handleRemoveItem = async (itemId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/cart/removeItem/${itemId}`
+      );
+
+      // Handle success
+      alert("Item removed successfully:");
+      window.location.reload();
+    } catch (error) {
+      // Handle error
+      console.error(
+        "Error removing item:",
+        error.response ? error.response.data : error.message
+      );
+
+      // Optionally, you can display an error message or take further actions
+    }
   };
 
   const handleCheckout = () => {
@@ -38,7 +54,7 @@ function ShopingCard() {
       .then((response) => {
         setCartItems(response.data);
       });
-  }, [currentUser._id, productId]);
+  }, [currentUser._id]);
 
   return (
     <div>

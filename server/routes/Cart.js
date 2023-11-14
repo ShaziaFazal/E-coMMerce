@@ -9,7 +9,7 @@ router.post("/addToCart", cartController.addToCart);
 router.get("/cartitems/:user_id", cartController.getCartItemByUserId);
 //remove the item from cart
 router.delete(
-  "/removeItem/:user_id/:product_id",
+  "/removeItem/:id",
   cartController.deleteCartItemByUserIdAndProductId
 );
 //delete the cart for the user Id
