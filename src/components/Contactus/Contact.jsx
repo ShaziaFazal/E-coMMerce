@@ -7,8 +7,6 @@ import Popup from "../PopUp/PopUp";
 import { useNavigate } from "react-router-dom";
 
 export default function Contact() { 
-
-
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [feedback,setFeedback] = useState({});
 	const dispatch = useDispatch();
@@ -22,6 +20,7 @@ export default function Contact() {
         //console.log(feedback)
     }
 	const handleSubmit =(e)=>{
+
         e.preventDefault();
         //console.log("feedback",feedback)
         dispatch(postFeedback(feedback));
@@ -31,8 +30,7 @@ export default function Contact() {
 	return ( 
 		<div className="py-2 px-4 mx-auto max-w-screen-md"> 
 			<h2 className="mb-4 text-4xl font-extrabold text-center text-gray-900"> 
-				Contact Us 
-			</h2> 
+				Contact Us 			</h2> 
 			<p className="mb-4 font-light text-left text-gray-500 sm:text-xl"> 
 				Got a issue? Want to send feedback? 
 				Need details about our Courses? Let us know. 
