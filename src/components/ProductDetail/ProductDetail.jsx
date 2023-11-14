@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "../Button/Button";
 
-export const ProductDetail = ({ product }) => {
+export const ProductDetail = ({ product, handleClick }) => {
   const [quantity, setQuantity] = useState(1);
   const [descriptionDisplayProperty, setDescriptionDisplayProperty] =
     useState("");
@@ -86,7 +86,7 @@ export const ProductDetail = ({ product }) => {
           +
         </button>
 
-        <Button title={"Add To Cart"} />
+        <Button handleClick={handleClick} title={"Add To Cart"} />
 
         <div className="text-sm">
           <div className="flex flex-row mt-20 mb-10 justify-between">

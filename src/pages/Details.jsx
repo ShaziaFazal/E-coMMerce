@@ -22,6 +22,7 @@ const Details = () => {
   if (!product) {
     return <p>Product not found</p>;
   }
+
   return (
     <DefaultLayout>
       <ProductSection product={product} />
