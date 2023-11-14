@@ -6,10 +6,11 @@ const mongoose = require("./config/connection");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const loginApis = require("./routes/Login");
-const productMaker = require('./routes/product');
-const quantityAdder = require('./routes/quantity');
+const productMaker = require("./routes/product");
+const quantityAdder = require("./routes/quantity");
 const orderAdder = require("./routes/Order");
-const contactApis = require('./routes/ContactUs');
+const contactApis = require("./routes/ContactUs");
+const cartApis = require("./routes/Cart");
 const cors = require("cors");
 dotenv.config();
 
@@ -21,10 +22,12 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 app.use("/signinSystem", loginApis);
-app.use('/productInfo',productMaker);
-app.use('/quantityInfo',quantityAdder);
-app.use('/orderInfo',orderAdder);
-app.use('/postFeedback',contactApis);
+app.use("/productInfo", productMaker);
+app.use("/quantityInfo", quantityAdder);
+app.use("/orderInfo", orderAdder);
+app.use("/postFeedback", contactApis);
+// cart apis
+app.use("/cart", cartApis);
 
 app.listen(port, "localhost", () => {
   console.log(`The server is up! at http://localhost:${port}`);
