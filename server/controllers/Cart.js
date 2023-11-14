@@ -36,11 +36,10 @@ const getCartItemByUserId = async (req, res) => {
 //delete the data against user id and product id
 const deleteCartItemByUserIdAndProductId = async (req, res) => {
   try {
-    const { user_id, product_id } = req.params;
+    const { id } = req.params;
 
     const removeCartItem = await Cart.findOneAndDelete({
-      user_id: user_id,
-      product_id: product_id,
+      _id: id,
     });
     if (!removeCartItem) {
       return res.status(404).json({ message: "Data Not Found" });

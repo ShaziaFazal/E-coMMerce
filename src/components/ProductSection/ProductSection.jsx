@@ -36,14 +36,15 @@ export const ProductSection = ({ product }) => {
   return (
     <div className="flex flex-row gap-7 mt-20">
       <div className="w-24 flex flex-col ml-20">
-        {product?.images.map((image, index) => (
-          <img
-            key={index}
-            src={image.src}
-            onClick={handleClick}
-            alt={`Image ${index}`}
-          />
-        ))}
+        {Array.isArray(product?.images) &&
+          product?.images.map((image, index) => (
+            <img
+              key={index}
+              src={image.src}
+              onClick={handleClick}
+              alt={`Image ${index}`}
+            />
+          ))}
       </div>
       <div className=" w-[500px]">
         <img src={displayImg} />

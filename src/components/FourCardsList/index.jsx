@@ -3,7 +3,7 @@
 import React from "react";
 import Card from "../Card";
 
-export default function FourCardsList(props) {
+const FourCardsList = (props) => {
   return (
     <>
       <div className="bg-white">
@@ -19,4 +19,5 @@ export default function FourCardsList(props) {
       </div>
     </>
   );
-}
+};
+export default FourCardsList;
