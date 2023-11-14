@@ -89,9 +89,11 @@ const getProductsAccordingToPriceFilter = async (req, res) => {
 
 //gets all data according to category
 const getProductsByCategory = async (req, res) => {
-  const { category } = req.body;
+  const { category } = req.query;
+  console.log(category);
   try {
     const response = await Product.find({ category: category });
+    //console.log("response",response);
     res.status(201).send(response);
   } catch (error) {
     res.status(500).send({ error: error.message });

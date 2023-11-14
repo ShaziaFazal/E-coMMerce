@@ -6,11 +6,7 @@ const productController = require("../controllers/product");
 router.post("/createproduct", productController.addProduct);
 router.get("/getallproducts", productController.getProducts);
 router.get("/getProductById", productController.getProductById);
-router.get(
-  "/getProductsAccordingToPriceFilter",
-  productController.getProductsAccordingToPriceFilter
-);
-
+router.get("/getProductsAccordingToPriceFilter",productController.getProductsAccordingToPriceFilter);
 router.get("/getProductByCategory", productController.getProductsByCategory);
 
 module.exports = router;
