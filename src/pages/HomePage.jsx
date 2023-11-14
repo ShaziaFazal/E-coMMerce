@@ -5,8 +5,6 @@ import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
 import Carousel from "../components/Carousel/Carousel";
 import { useState, useEffect } from "react";
 import Dropdown from "../components/Dropdown/Dropdown";
-import { getCurrentUser, getIsAuthenticated } from "../store/User.reducer";
-import { useSelector } from "react-redux";
 import axios from "axios";
 
 const images = [
@@ -29,8 +27,6 @@ const links = [
 const HomePage = () => {
   const [view, setView] = useState(4);
   const [products, setProducts] = useState([]);
-  const isAuthenticated = useSelector(getIsAuthenticated);
-  const currentUser = useSelector(getCurrentUser);
 
   // console.log(currentUser, "currentUser", isAuthenticated);
 
