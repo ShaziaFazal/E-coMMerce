@@ -34,6 +34,7 @@ const Dropdown = (props) => {
   };
 
   const [selectedOption, setSelectedOption] = useState(undefined);
+  
   const onOptionClicked = (value) => () => {
     props.onOptionClicked && props.onOptionClicked(value);
     setSelectedOption(value);

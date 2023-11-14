@@ -7,12 +7,8 @@ router.post("/createproduct", productController.addProduct);
 router.get("/getallproducts", productController.getProducts);
 router.get("/getProductById", productController.getProductById);
 router.get(
-  "/getProductsLowerToHigherPrice",
-  productController.getProductsLowerToHigherPrice
-);
-router.get(
-  "/getProductsHigherToLowerPrice",
-  productController.getProductsHigherToLowerPrice
+  "/getProductsAccordingToPriceFilter",
+  productController.getProductsAccordingToPriceFilter
 );
 
 router.get("/getProductByCategory", productController.getProductsByCategory);
