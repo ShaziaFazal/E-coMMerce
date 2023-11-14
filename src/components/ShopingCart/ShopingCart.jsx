@@ -7,30 +7,31 @@ function ShoppingCart({
   onCheckout,
   onContinueShopping,
 }) {
+  console.log(cartItems, "cartItems");
   return (
     <div className="container mx-auto my-8">
       <h2 className="text-2xl font-bold mb-4">Shopping Cart</h2>
 
       <div className="flex flex-col gap-8">
-        {cartItems.map((item) => (
-          <div key={item.id} className="flex  mb-8">
+        {cartItems.map((item, index) => (
+          <div key={index} className="flex gap-8  mb-8">
             <div className=" h-40 overflow-hidden">
               <img
-                src={item.src}
-                alt={item.name}
+                src={item.product_id.images[0].src}
+                alt={index}
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="mt-4">
               <h3 className="text-lg font-medium text-gray-900">
-                <a href="#">{item.name}</a>
+                <a href="#">{item.product_id.title}</a>
               </h3>
               <p className="text-sm text-gray-500">{item.color}</p>
-              <p className="mt-2">${item.price.toFixed(2)}</p>
+              <p className="mt-2">PKR {item.product_id.price.toFixed(2)}</p>
               <p className="mt-2">Qty: {item.quantity}</p>
               <button
                 type="button"
-                onClick={() => onRemoveItem(item.id)}
+                onClick={() => onRemoveItem(item._id)}
                 className="mt-2 text-indigo-600 hover:text-indigo-500"
               >
                 Remove
@@ -43,7 +44,7 @@ function ShoppingCart({
       <div className="border-t border-gray-200 mt-8 pt-8">
         <div className="flex justify-between text-lg font-medium text-gray-900">
           <p>Subtotal</p>
-          <p>${subtotal.toFixed(2)}</p>
+          <p>PKR {subtotal.toFixed(2)}</p>
         </div>
         <p className="mt-2 text-sm text-gray-500">
           Shipping and taxes calculated at checkout.
