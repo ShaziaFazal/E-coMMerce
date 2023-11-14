@@ -17,7 +17,6 @@ export default function Contact() {
 
 	const getFeedbackData = (e) =>{
         setFeedback({...feedback , [e.target.name]: e.target.value});
-        //console.log(feedback)
     }
 	const handleSubmit =(e)=>{
 

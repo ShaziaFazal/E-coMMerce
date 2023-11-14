@@ -15,7 +15,8 @@ const initialState = {
     mail:"",
     subject:"",
     message:"",
-  }
+  },
+  category:""
 };
 
 export const postFeedback = createAsyncThunk("postFeedback",async(data,rejectWithValue)=>{
@@ -34,6 +35,17 @@ export const postFeedback = createAsyncThunk("postFeedback",async(data,rejectWit
 } catch (error) {
     return rejectWithValue(error.response);
 }
+});
+
+export const changeCategory = createAsyncThunk("changeCategory",async(category,rejectWithValue)=>{
+  console.log("category in thunk",category);
+  const response = await fetch(`http://localhost:4000/productInfo/getProductByCategory?category=${category}`);
+  try {
+    const result = await response?.json();
+    console.log(result);
+  } catch (error) {
+    return rejectWithValue(error);
+  }
 })
 
 export const userSlice = createSlice({
@@ -66,6 +78,14 @@ export const userSlice = createSlice({
     }).addCase(postFeedback.rejected,(state,action)=>{
       state.loading = false;
       state.feedback = action.payload
+    }).addCase(changeCategory.pending,(state)=>{
+      state.loading = true;
+    }).addCase(changeCategory.fulfilled,(state,action)=>{
+      state.loading = false;
+      state.category = action.payload;
+    }).addCase(changeCategory.rejected,(state,action)=>{
+      state.loading = false;
+      state.category = action.payload;
     })
   }
 });
