@@ -27,6 +27,7 @@ const links = [
 const HomePage = () => {
   const [view, setView] = useState(4);
   const [products, setProducts] = useState([]);
+  
 
   // console.log(currentUser, "currentUser", isAuthenticated);
 
@@ -41,6 +42,19 @@ const HomePage = () => {
       console.log(error);
     }
   }, []);
+
+  const priceFilter = (value) => {
+    try {
+      axios
+        .get("http://localhost:4000/productInfo/getProductsAccordingToPriceFilter?filter="+value)
+        .then((response) => {
+          setProducts(response.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   return (
     <DefaultLayout>
@@ -77,6 +91,7 @@ const HomePage = () => {
               { label: "Price Low To High", value: "Price Low To High" },
               { label: "Price High To Low", value: "Price High To Low" },
             ]}
+           onOptionClicked={(value)=> priceFilter(value)}
           />
         </div>
       </Breadcrumb>

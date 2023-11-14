@@ -72,24 +72,22 @@ const getProductById = async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 };
-//gets producrt in ascending order of data lower price to highest
-const getProductsLowerToHigherPrice = async (req, res) => {
+//gets producrt according to price filter
+const getProductsAccordingToPriceFilter = async (req, res) => {
+  const { filter } = req.query;
   try {
-    const response = await Product.find().sort({ price: 1 });
-    res.status(201).send(response);
+    if (filter === "Price Low To High") {
+      const response = await Product.find().sort({ price: 1 });
+      res.status(201).send(response);
+    } else {
+      const response = await Product.find().sort({ price: -1 });
+      res.status(201).send(response);
+    }
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
 };
-//gets producrt in descending order of data highest to lower price
-const getProductsHigherToLowerPrice = async (req, res) => {
-  try {
-    const response = await Product.find().sort({ price: -1 });
-    res.status(201).send(response);
-  } catch (error) {
-    res.status(500).send({ error: error.message });
-  }
-};
+
 //gets all data according to category
 const getProductsByCategory = async (req, res) => {
   const { category } = req.body;
@@ -105,7 +103,6 @@ module.exports = {
   addProduct,
   getProducts,
   getProductById,
-  getProductsLowerToHigherPrice,
-  getProductsHigherToLowerPrice,
+  getProductsAccordingToPriceFilter,
   getProductsByCategory,
 };
