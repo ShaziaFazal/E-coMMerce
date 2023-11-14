@@ -5,7 +5,7 @@ import React from 'react'
 const ProductList = (props) => {
     return (
         <>
-            <main className="py-10 lg:pl-72">
+            <main className=" bg-gray-400 py-10 lg:pl-72">
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="px-4 sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
@@ -49,7 +49,7 @@ const ProductList = (props) => {
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
                                             {props.data.map((product) => (
-                                                <tr key={product.email}>
+                                                <tr key={product.email} className=" bg-gray-400 ">
                                                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                                                         <div className="flex items-center">
                                                             <div className="h-11 w-11 flex-shrink-0">

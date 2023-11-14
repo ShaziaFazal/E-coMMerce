@@ -1,6 +1,5 @@
-import { React, useState } from 'react'
+import { useState } from 'react'
 
-import { PhotoIcon } from '@heroicons/react/24/solid'
 
 const NewProductForm = () => {
     const [formData, setFormData] = useState({
@@ -28,9 +27,27 @@ const NewProductForm = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setFormData({
+            title: '',
+            id: '',
+            price: 0,
+            stock: '',
+            sizes: [],
+            description: '',
+            sizeChart: '',
+            fabric: '',
+            content: '',
+            fit: '',
+            modelFit: '',
+            modelSize: '',
+            deliveryDetails: '',
+            note: '',
+            images: '',
+            discount: '',
+            category: '',
+        })
 
         try {
             const response = await fetch('http://localhost:4000/productInfo/createproduct', {
@@ -49,11 +66,28 @@ const NewProductForm = () => {
         setShowAlert(true);
     };
 
-
-
     return (
         <>
             <main className="py-10 lg:pl-72">
+                {showAlert && (
+                    <div className="mt-4 mx-8 top-0 right-0 fixed sm:px-6 lg:px-8 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
+                        <strong className="font-bold">Success!</strong>
+                        <span className="block mx-2 sm:inline"> Product successfully added.</span>
+                        <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+                            <svg
+                                onClick={() => setShowAlert(false)}
+                                className="fill-current h-6 w-6 text-green-500"
+                                role="button"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                            >
+                                <title>Close</title>
+                                <path d="M14.348 14.849a1 1 0 0 1-1.414 1.414l-3.535-3.536-3.536 3.536a1 1 0 1 1-1.414-1.414l3.536-3.535-3.536-3.536a1 1 0 0 1 1.414-1.414l3.536 3.536 3.535-3.536a1 1 0 0 1 1.414 1.414l-3.536 3.536 3.536 3.535z" />
+                            </svg>
+                        </span>
+                    </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="px-4 sm:px-6 lg:px-8">
                     <div className="space-y-12 sm:space-y-16">
                         <div>

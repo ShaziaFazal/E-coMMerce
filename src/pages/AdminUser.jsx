@@ -19,7 +19,7 @@ export default function AdminUsers() {
     useEffect(() => {
         try {
             axios
-                .get("http://localhost:4000/routes/Login/getUsers")
+                .get("http://localhost:4000/signinSystem/users")
                 .then((response) => {
                     setCustomers(response.data);
                 });
