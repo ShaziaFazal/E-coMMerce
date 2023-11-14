@@ -8,7 +8,8 @@ const dotenv = require("dotenv");
 const loginApis = require("./routes/Login");
 const productMaker = require('./routes/product');
 const quantityAdder = require('./routes/quantity');
-const orderAdder = require("./routes/Order")
+const orderAdder = require("./routes/Order");
+const contactApis = require('./routes/ContactUs');
 const cors = require("cors");
 dotenv.config();
 
@@ -23,6 +24,8 @@ app.use("/signinSystem", loginApis);
 app.use('/productInfo',productMaker);
 app.use('/quantityInfo',quantityAdder);
 app.use('/orderInfo',orderAdder);
+app.use('/postFeedback',contactApis);
+
 app.listen(port, "localhost", () => {
   console.log(`The server is up! at http://localhost:${port}`);
 });
