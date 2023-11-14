@@ -56,7 +56,7 @@ const CustomerList = (props) => {
                                                                 <img className="h-11 w-11 rounded-full" src={person.image} alt="" />
                                                             </div>
                                                             <div className="ml-4">
-                                                                <div className="font-medium text-gray-900">{person.name}</div>
+                                                                <div className="font-medium text-gray-900">{person.username}</div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -71,7 +71,7 @@ const CustomerList = (props) => {
                                                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">{person.role}</td>
                                                     <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                                         <a href="#" className="text-gray-600 hover:text-gray-900">
-                                                            Edit<span className="sr-only">, {person.name}</span>
+                                                            Edit<span className="sr-only">, {person.username}</span>
                                                         </a>
                                                     </td>
                                                 </tr>

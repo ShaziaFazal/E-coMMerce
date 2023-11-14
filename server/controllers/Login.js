@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const loginTest = require("../models/Login");
@@ -60,8 +61,8 @@ const LoginUser = async (req, res) => {
     res.status(500).json({ message: "Error in controller" });
   }
 };
-//gets all the users in schema
-const getAllUsers = async (req, res) => {
+
+const getUsers = async (req, res) => {
   try {
     const allUsers = await loginTest.find({ role: "Customer" });
     res.status(201).send(allUsers);
@@ -70,4 +71,4 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-module.exports = { SignupUser, LoginUser, getAllUsers };
+module.exports = { SignupUser, LoginUser, getUsers };

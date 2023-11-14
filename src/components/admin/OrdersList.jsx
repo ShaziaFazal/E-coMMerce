@@ -32,7 +32,7 @@ const OrderList = (props) => {
                                                     Customer
                                                 </th>
                                                 <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                    Date
+                                                    Payment Method
                                                 </th>
                                                 <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                                     <span className="sr-only">Edit</span>
@@ -48,7 +48,7 @@ const OrderList = (props) => {
                                                                 <img className="h-11 w-11 rounded-full" src={item.image} alt="" />
                                                             </div>
                                                             <div className="ml-4">
-                                                                <div className="font-medium text-gray-900">{item.title}</div>
+                                                                <div className="font-medium text-gray-900">{item.productTitle}</div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -57,16 +57,16 @@ const OrderList = (props) => {
                                                         <div className="text-gray-900">{item.category}</div>
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                        <div className="text-gray-900">{item.customer}</div>
+                                                        <div className="text-gray-900">{item.name}</div>
                                                     </td>
 
                                                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                        <div className="text-gray-900">{item.date}</div>
+                                                        <div className="text-gray-900">{item.paymentMethod}</div>
                                                     </td>
 
                                                     <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                                         <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                                                            Edit<span className="sr-only">, {item.title}</span>
+                                                            Edit<span className="sr-only">, {item.productTitle}</span>
                                                         </a>
                                                     </td>
                                                 </tr>

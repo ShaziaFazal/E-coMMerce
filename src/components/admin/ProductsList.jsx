@@ -12,7 +12,7 @@ const ProductList = (props) => {
                             <div className="sm:flex-auto">
                                 <h1 className="text-base font-semibold leading-6 text-gray-900">Products</h1>
                                 <p className="mt-2 text-sm text-gray-700">
-                                    A list of all the products in your account including their title, category, price and status.
+                                    A list of all the products in your account including their title, category, size and status.
                                 </p>
                             </div>
                             <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -53,7 +53,7 @@ const ProductList = (props) => {
                                                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                                                         <div className="flex items-center">
                                                             <div className="h-11 w-11 flex-shrink-0">
-                                                                <img className="h-11 w-11 rounded-full" src={product.image} alt="" />
+                                                                <img className="h-11 w-11 rounded-full" src={product.images} alt="" />
                                                             </div>
                                                             <div className="ml-4">
                                                                 <div className="font-medium text-gray-900">{product.title}</div>
@@ -61,21 +61,21 @@ const ProductList = (props) => {
                                                         </div>
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                        <div className="text-gray-900">{product.category}</div>
+                                                        <div className="text-gray-900">{product.fabric}</div>
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                            <div className="text-gray-900">{product.price}</div>
+                                                            <div className="text-gray-900">{product.size}</div>
                                                         </td>
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                         <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                                                            {product.status}
+                                                            {product.stock}
                                                         </span>
                                                     </td>
                                                     <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                                         <a href="#" className="text-gray-600 hover:text-gray-900">
-                                                            Edit<span className="sr-only">, {product.name}</span>
+                                                            Edit<span className="sr-only">, {product.title}</span>
                                                         </a>
                                                     </td>
                                                 </tr>

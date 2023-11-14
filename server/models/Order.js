@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const mongoose = require("mongoose");
 
 const order = new mongoose.Schema({
@@ -9,15 +10,15 @@ const order = new mongoose.Schema({
         type: String,
         required: true
     },
-    address:{
+    address: {
         type: String,
         required: true
     },
-    contactNumber:{
+    contactNumber: {
         type: String,
         required: true
     },
-    paymentMethod:{
+    paymentMethod: {
         type: String,
         required: true
     },
@@ -25,15 +26,15 @@ const order = new mongoose.Schema({
         type: String,
         required: true
     },
-    productTitle:{
+    productTitle: {
         type: String,
         required: true
     },
-    productSize:{
+    productSize: {
         type: String,
         required: true
     },
-    
+
 
 })
 
