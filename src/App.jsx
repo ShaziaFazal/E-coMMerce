@@ -10,6 +10,7 @@ import Checkout from "./pages/cart/Checkout";
 import ShopingCard from "./pages/cart/ShopingCard";
 import Aboutus from "./pages/Aboutus";
 import Contactus from "./pages/Contactus";
+import StripeContainer from "./components/Stripe/StripeContainer";
 const App = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/detail/:id" element={<DetailsPage />} />
           <Route path="/cart/shoppingcart" element={<ShopingCard />} />
           <Route path="/cart/checkout" element={<Checkout />} />
+          <Route path="/cart/Stripe" element={<StripeContainer />} />
         </Routes>
       </BrowserRouter>
     </>
