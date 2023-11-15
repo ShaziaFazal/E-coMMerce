@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "../Button/Button";
 
-export const ProductDetail = ({ product }) => {
+export const ProductDetail = ({ product, handleClick }) => {
   const [quantity, setQuantity] = useState(1);
   const [descriptionDisplayProperty, setDescriptionDisplayProperty] =
     useState("");
@@ -11,6 +11,12 @@ export const ProductDetail = ({ product }) => {
   const [descriptionVisible, setDescriptionVisible] = useState(true);
   const [deliveryDetailVisible, setDeliveryDetailVisible] = useState(true);
   const [noteVisible, setNoteVisible] = useState(true);
+  const [selectedSize, setSelectedSize] = useState(null);
+
+  const handleSizeClick = (size) => {
+    // Update the state with the selected size
+    setSelectedSize(size);
+  };
 
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);
@@ -66,7 +72,15 @@ export const ProductDetail = ({ product }) => {
         <h3>Size:</h3>
 
         {product.sizes.map((size) => (
-          <p key={size._id} className="bg-zinc-200 px-2 border text-black">
+          <p
+            key={size._id}
+            className={` cursor-pointer px-2 border ${
+              selectedSize === size.size
+                ? "bg-black text-white"
+                : "bg-zinc-200  text-black"
+            }`}
+            onClick={() => handleSizeClick(size.size)}
+          >
             {size.size}
           </p>
         ))}
@@ -86,7 +100,13 @@ export const ProductDetail = ({ product }) => {
           +
         </button>
 
-        <Button title={"Add To Cart"} />
+        <Button
+          handleClick={(e) => {
+            e.preventDefault;
+            handleClick(quantity, product._id, selectedSize);
+          }}
+          title={"Add To Cart"}
+        />
 
         <div className="text-sm">
           <div className="flex flex-row mt-20 mb-10 justify-between">

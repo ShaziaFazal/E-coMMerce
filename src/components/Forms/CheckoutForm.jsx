@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function ProductItem({ imageSrc, productName, productDetails, price }) {
   return (
@@ -10,22 +10,46 @@ function ProductItem({ imageSrc, productName, productDetails, price }) {
       />
       <div className="flex w-full flex-col px-4 py-4">
         <span className="font-semibold">{productName}</span>
-        <span className="float-right text-gray-400">{productDetails}</span>
+        <span className="float-right text-gray-400  line-clamp-2">
+          {productDetails}
+        </span>
         <p className="text-lg font-bold">{`PKR ${price}`}</p>
       </div>
     </div>
   );
 }
 
-function CheckoutForm({ onSubmit, products }) {
+const PaymentOption = ({ id, label, description, checked, onChange }) => {
+  return (
+    <div className="relative">
+      <input
+        className="peer hidden"
+        id={id}
+        type="radio"
+        name="radio"
+        checked={checked}
+        onChange={() => onChange(id)}
+      />
+      <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
+      <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4">
+        <div className="ml-5">
+          <span className="mt-2 font-semibold">{label}</span>
+          <p className="text-slate-500 text-sm leading-6 ">{description}</p>
+        </div>
+      </label>
+    </div>
+  );
+};
+
+const CheckoutForm = ({ onSubmit, products }) => {
+  const [selectedOption, setSelectedOption] = useState("cashOnDelivery");
   const [formData, setFormData] = useState({
-    customerName: "",
+    name: "",
     email: "",
-    shippingAddress: "",
-    city: "",
-    zipCode: "",
+    address: "",
     contactNumber: "",
-    productQuantity: 1,
+    paymentMethod: "cashOnDelivery",
+    totalPrice: "",
   });
 
   const handleChange = (e) => {
@@ -38,7 +62,10 @@ function CheckoutForm({ onSubmit, products }) {
   const calculateSubtotal = (products) => {
     // Calculate the subtotal based on the products array
     // You need to define the structure of your products and their prices
-    return products.reduce((total, product) => total + product.price, 0);
+    return products.reduce(
+      (total, product) => total + product.product_id.price,
+      0
+    );
   };
 
   const calculateTotal = (products) => {
@@ -53,8 +80,28 @@ function CheckoutForm({ onSubmit, products }) {
     // Pass the form data to the parent component
     onSubmit(formData);
   };
+
+  const handleOptionChange = (optionId) => {
+    setSelectedOption(optionId);
+    setFormData({
+      ...formData,
+      paymentMethod: optionId,
+    });
+    const totalPrice = calculateTotal(products);
+    setFormData({
+      ...formData,
+      totalPrice: totalPrice,
+    });
+  };
+  useEffect(() => {
+    const totalPrice = calculateTotal(products);
+    setFormData({
+      ...formData,
+      totalPrice: totalPrice,
+    });
+  }, [formData, products]);
   return (
-    <div>
+    <div className=" py-20">
       <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
         <div className="px-4 pt-8">
           <p className="text-xl font-medium">Order Summary</p>
@@ -66,33 +113,29 @@ function CheckoutForm({ onSubmit, products }) {
             {products.map((product, index) => (
               <ProductItem
                 key={index}
-                imageSrc={product.imageSrc} // Replace with the actual property from your product data
-                productName={product.name} // Replace with the actual property from your product data
-                productDetails={product.details} // Replace with the actual property from your product data
-                price={product.price} // Replace with the actual property from your product data
+                imageSrc={product.product_id.images[0].src}
+                productName={product.product_id.title}
+                productDetails={product.product_id.description}
+                price={product.product_id.price}
               />
             ))}
           </div>
           <p className="mt-8 text-lg font-medium">Shipping Methods</p>
           <form className="mt-5 grid gap-6">
-            <div className="relative">
-              <input
-                className="peer hidden"
-                id="radio_1"
-                type="radio"
-                name="radio"
-                checked
-              />
-              <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-              <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4">
-                <div className="ml-5">
-                  <span className="mt-2 font-semibold">Cash On Delivery</span>
-                  <p className="text-slate-500 text-sm leading-6">
-                    Delivery: 2-4 Days
-                  </p>
-                </div>
-              </label>
-            </div>
+            <PaymentOption
+              id="cashOnDelivery"
+              label="Cash On Delivery"
+              description="Delivery: 2-4 Days"
+              checked={selectedOption === "cashOnDelivery"}
+              onChange={handleOptionChange}
+            />
+            <PaymentOption
+              id="cardPayment"
+              label="Card Payment"
+              description="Delivery: 2-4 Days"
+              checked={selectedOption === "cardPayment"}
+              onChange={handleOptionChange}
+            />
           </form>
         </div>
         <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
@@ -103,16 +146,16 @@ function CheckoutForm({ onSubmit, products }) {
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
-                htmlFor="customerName"
+                htmlFor="name"
                 className="block text-sm font-semibold text-gray-600"
               >
                 Customer Name:
               </label>
               <input
                 type="text"
-                id="customerName"
-                name="customerName"
-                value={formData.customerName}
+                id="name"
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
                 className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
                 required
@@ -137,57 +180,22 @@ function CheckoutForm({ onSubmit, products }) {
             </div>
             <div className="mb-4">
               <label
-                htmlFor="shippingAddress"
+                htmlFor="address"
                 className="block text-sm font-semibold text-gray-600"
               >
                 Shipping Address:
               </label>
               <input
                 type="text"
-                id="shippingAddress"
-                name="shippingAddress"
-                value={formData.shippingAddress}
+                id="address"
+                name="address"
+                value={formData.address}
                 onChange={handleChange}
                 className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
                 required
               />
             </div>
-            <div className="flex mb-4">
-              <div className="w-1/2 mr-2">
-                <label
-                  htmlFor="city"
-                  className="block text-sm font-semibold text-gray-600"
-                >
-                  City:
-                </label>
-                <input
-                  type="text"
-                  id="city"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-                  required
-                />
-              </div>
-              <div className="w-1/2 ml-2">
-                <label
-                  htmlFor="zipCode"
-                  className="block text-sm font-semibold text-gray-600"
-                >
-                  ZIP Code:
-                </label>
-                <input
-                  type="text"
-                  id="zipCode"
-                  name="zipCode"
-                  value={formData.zipCode}
-                  onChange={handleChange}
-                  className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-                  required
-                />
-              </div>
-            </div>
+
             <div className="mb-4">
               <label
                 htmlFor="productQuantity"
@@ -253,6 +261,6 @@ function CheckoutForm({ onSubmit, products }) {
       </div>
     </div>
   );
-}
+};
 
 export default CheckoutForm;

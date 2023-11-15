@@ -6,14 +6,16 @@ import {
     PlusIcon,
     TagIcon,
     UsersIcon,
+    BuildingLibraryIcon,
     XMarkIcon
 } from '@heroicons/react/24/outline'
 
 const navigation = [
+    { name: 'Dashboard', href: '/admin/dashboard/', icon: BuildingLibraryIcon, current: false },
     { name: 'Customers', href: '/admin/dashboard/customers', icon: UsersIcon, current: false },
     { name: 'Products', href: '/admin/dashboard/products', icon: TagIcon, current: false },
     { name: 'Orders', href: '/admin/dashboard/orders', icon: CheckBadgeIcon, current: false },
-    { name: 'Add Products', href: '#', icon: PlusIcon, current: false },
+    { name: 'Add Products', href: '/admin/dashboard/addproducts', icon: PlusIcon, current: false },
 ]
 
 function classNames(...classes) {

@@ -1,12 +1,16 @@
 import { useState } from "react";
 import Model from "../Model/model";
 
-const MainBar = (props) => {
+export const MainBar = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [data, setData] = useState({ username: "", email: "", password: "" });
   const [isOpen, setIsOpen] = useState(false);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const access_token = localStorage.getItem("token");
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
   const closeSignUpModal = () => {
     setIsOpen(false);
   };
@@ -31,8 +35,7 @@ const MainBar = (props) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     props.handleLogIn && props.handleLogIn(email, password);
     setIsModalOpen(false);
   };
@@ -47,6 +50,10 @@ const MainBar = (props) => {
     props.handleSignUp && props.handleSignUp(data);
     setData({ username: "", email: "", password: "" });
     setIsOpen(false);
+  };
+
+  const handleMenuToggle = () => {
+    setMenuOpen(!isMenuOpen);
   };
 
   const LoginModal = () => {
@@ -104,7 +111,7 @@ const MainBar = (props) => {
                 onClick={handleClick}
                 className="text-blue-600 cursor-pointer "
               >
-                Sign In
+                Sign Up
               </span>
             </p>
           </div>
@@ -191,7 +198,7 @@ const MainBar = (props) => {
           <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 32 32"
+              viewBox="0 0 30 30"
               fill="currentColor"
               className="flex-shrink-0 w-5 h-5 rounded-full dark:text-gray-900"
             >
@@ -228,17 +235,89 @@ const MainBar = (props) => {
               </svg>
             </span>
           </div>
-          {localStorage.getItem("token") ? (
-            <button
-              onClick={props.handleLogOut}
-              className="bg-none pb-3 text-black"
-            >
-              Log Out
-            </button>
+          {currentUser ? (
+            <div className="relative ml-3">
+              <div>
+                <button
+                  type="button"
+                  className="relative flex rounded-full bg-gray-800 text-sm w-8 h-8 "
+                  id="user-menu-button"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  onClick={handleMenuToggle}
+                >
+                  <span className="absolute -inset-1.5"></span>
+
+                  <img
+                    className=" rounded-full"
+                    src={`https://eu.ui-avatars.com/api/?name=${currentUser?.username
+                      .split(" ")
+                      .join("+")}&size=100`}
+                    alt="profile"
+                  />
+                </button>
+              </div>
+              {isMenuOpen && (
+                <div
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu-button"
+                  tabIndex="-1"
+                >
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700"
+                    role="menuitem"
+                    tabIndex="-1"
+                    id="user-menu-item-2"
+                    onClick={props.handleLogOut}
+                  >
+                    Sign out
+                  </a>
+                  <a
+                    href="/cart/shoppingcart"
+                    className="block px-4 py-2 text-sm text-gray-700"
+                    role="menuitem"
+                    tabIndex="-1"
+                    id="user-menu-item-0"
+                  >
+                    My Cart
+                  </a>
+                </div>
+              )}
+            </div>
           ) : (
             <button onClick={openModal} className="bg-none pb-3 text-black">
               Login
             </button>
+          )}
+          {access_token && (
+            <a href="/cart/shoppingcart" className="cart-icon">
+              <svg
+                width="30"
+                height="30"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M4.51345 5H1.33325V3H6.15306L7.21972 8.33333H30.5315L27.5012 25H8.51345L4.51345 5ZM7.61972 10.3333L10.1531 23H25.832L28.135 10.3333H7.61972Z"
+                  fill="black"
+                  data-spm-anchor-id="a2a0e.25546351.dcart.i0.38f846f2N6Ni8q"
+                ></path>
+                <path
+                  d="M11.9999 28C11.9999 28.7364 11.403 29.3333 10.6666 29.3333C9.93021 29.3333 9.33325 28.7364 9.33325 28C9.33325 27.2636 9.93021 26.6667 10.6666 26.6667C11.403 26.6667 11.9999 27.2636 11.9999 28Z"
+                  fill="black"
+                ></path>
+                <path
+                  d="M25.3333 29.3333C26.0696 29.3333 26.6666 28.7364 26.6666 28C26.6666 27.2636 26.0696 26.6667 25.3333 26.6667C24.5969 26.6667 23.9999 27.2636 23.9999 28C23.9999 28.7364 24.5969 29.3333 25.3333 29.3333Z"
+                  fill="black"
+                ></path>
+              </svg>
+            </a>
           )}
 
           {LoginModal()}

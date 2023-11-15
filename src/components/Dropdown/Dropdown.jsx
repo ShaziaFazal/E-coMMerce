@@ -34,7 +34,7 @@ const Dropdown = (props) => {
   };
 
   const [selectedOption, setSelectedOption] = useState(undefined);
-  
+
   const onOptionClicked = (value) => () => {
     props.onOptionClicked && props.onOptionClicked(value);
     setSelectedOption(value);
@@ -48,19 +48,21 @@ const Dropdown = (props) => {
   return (
     <div ref={dropdownEl} className="relative inline-block m-auto">
       <span className="m-0 p-0 cursor-pointer" onClick={() => toggling()}>
-        {selectedOption || props.placeholder}
+        {props.placeholder}
       </span>
 
       {isOpen && (
         <ul
-          className={`absolute right-1 w-auto z-10 border bg-white shadow-lg transition ease-in-out delay-150 bg-background-primary ${
+          className={`absolute right-1 w-[152px] z-10 border bg-white shadow-lg transition ease-in-out delay-150 bg-background-primary ${
             styles.sizes[props.size || "default"]
           }`}
         >
           {props.options.map((option, index) => (
             <li
               key={index}
-              className="dropdown-item list-none text-primary hover:bg-gray-200  hover:cursor-pointer "
+              className={`dropdown-item list-none text-primary hover:bg-gray-200  hover:cursor-pointer ${
+                selectedOption === option.value && " bg-blue-400"
+              }`}
             >
               <div
                 className="flex px-3 py-1.5 m-auto items-center whitespace-nowrap"

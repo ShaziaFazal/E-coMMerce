@@ -14,11 +14,11 @@ const Card = (props) => {
           <div className="absolute">
             <img
               src={
-                props.product?.images[0]?.src ||
+                props.product?.images?.[0]?.src ||
                 "https://beechtree.pk/cdn/shop/products/BT2W22U93_1.jpg?v=1667235329"
               }
-              alt={props.product.images[0]?.alt || "img"}
-              className=" h-full w-full object-cover object-center"
+              alt={props.product?.images?.[0]?.alt || "img"}
+              className="h-full w-full object-cover object-center"
             />
           </div>
           {props.product.stock === undefined && (

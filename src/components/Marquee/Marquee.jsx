@@ -1,6 +1,6 @@
 const Marquee = () => {
   return (
-    <div className="bg-[#eff0e6]">
+    <div className="bg-[#eff0e6] z-10">
       <div className="flex justify-between px-8 py-2 border-b border-gray-300">
         <div className="  rounded-md">UAN # +92 300-00-00-00-1</div>
         <div className=" rounded-md">
