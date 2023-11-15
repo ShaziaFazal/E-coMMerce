@@ -17,54 +17,76 @@ const NewProductForm = () => {
         modelSize: '',
         deliveryDetails: '',
         note: '',
-        images: '',
+        images: [],
         discount: '',
         category: '',
     });
 
-    const [showAlert, setShowAlert] = useState(false);
+const [showAlert, setShowAlert] = useState(false);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+const handleChange = (e) => {
+    if (e.target.name === 'images') {
+        // Split the input into an array of URLs
+        const imageUrls = e.target.value.split(',');
+    
+        // Create an array of objects with src and alt properties
+        const imageObjects = imageUrls.map(url => ({ src: url.trim(), alt: 'Image' }));
+    
+        // Update the formData state
+        setFormData({ ...formData, [e.target.name]: imageObjects });
+    } else {
+        // For other fields, update the formData state as usual
+        setFormData(prevData => ({ ...prevData, [e.target.name]: e.target.value }));
+    }
     };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setFormData({
-            title: '',
-            id: '',
-            price: 0,
-            stock: '',
-            sizes: [],
-            description: '',
-            sizeChart: '',
-            fabric: '',
-            content: '',
-            fit: '',
-            modelFit: '',
-            modelSize: '',
-            deliveryDetails: '',
-            note: '',
-            images: '',
-            discount: '',
-            category: '',
-        })
+ 
+const handleImagesChange = (e) => {
+    const imageUrls = e.target.value.split(',');
 
-        try {
-            const response = await fetch('http://localhost:4000/productInfo/createproduct', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
+    const imageObjects = imageUrls.map(url => ({ src: url.trim(), alt: 'Image' }));
 
-        setShowAlert(true);
-    };
+    setFormData(prevData => ({ ...prevData, images: imageObjects }));
+    };  
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormData({
+        title: '',
+        id: '',
+        price: 0,
+        stock: '',
+        sizes: [],
+        description: '',
+        sizeChart: '',
+        fabric: '',
+        content: '',
+        fit: '',
+        modelFit: '',
+        modelSize: '',
+        deliveryDetails: '',
+        note: '',
+        images: [],
+        discount: '',
+        category: '',
+    })
+
+    try {
+        const response = await fetch('http://localhost:4000/productInfo/createproduct', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+        const data = await response.json();
+        console.log(data);
+        //window.location.href = 'http://localhost:5173';
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+    setShowAlert(true);
+};
 
     return (
         <>
@@ -384,21 +406,23 @@ const NewProductForm = () => {
                                 </div>
 
                                 <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-                                    <label htmlFor="images" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
-                                        Images
-                                    </label>
-                                    <div className="mt-2 sm:col-span-2 sm:mt-0">
-                                        <input
-                                            id="images"
-                                            name="images"
-                                            type="text"
-                                            autoComplete="images"
-                                            value={formData.images}
-                                            onChange={handleChange}
-                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
-                                        />
-                                    </div>
-                                </div>
+        <label htmlFor="images" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
+          Images
+        </label>
+        <div className="mt-2 sm:col-span-2 sm:mt-0">
+          <input
+            id="images"
+            name="images"
+            type="text"
+            autoComplete="images"
+            value={formData.images.map(img => img.src).join(', ')} // Display comma-separated URLs
+            onChange={handleImagesChange}
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-md sm:text-sm sm:leading-6"
+            placeholder="Enter image URLs separated by commas"
+          />
+          <small className="text-gray-500">Enter image URLs separated by commas.</small>
+        </div>
+      </div>
 
                                 <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                                     <label htmlFor="discount" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">

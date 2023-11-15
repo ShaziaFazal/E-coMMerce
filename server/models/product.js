@@ -61,7 +61,7 @@ const product = new mongoose.Schema({
   images: [
     {
       src: { type: String, required: true },
-      // alt:{type:String,required:true}
+      alt: { type: String, required: true }
     },
   ],
   discount: {
