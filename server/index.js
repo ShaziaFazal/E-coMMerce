@@ -10,13 +10,17 @@ const productMaker = require('./routes/product');
 const quantityAdder = require('./routes/quantity');
 const orderAdder = require("./routes/Order");
 const contactApis = require('./routes/ContactUs');
-const cors = require("cors");
+
 dotenv.config();
+
+const cors = require("cors");
+
 
 let port = 4000;
 app.use(cors());
-
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json());
+
 
 app.use(express.static("public"));
 
@@ -25,6 +29,7 @@ app.use('/productInfo',productMaker);
 app.use('/quantityInfo',quantityAdder);
 app.use('/orderInfo',orderAdder);
 app.use('/postFeedback',contactApis);
+
 
 app.listen(port, "localhost", () => {
   console.log(`The server is up! at http://localhost:${port}`);
