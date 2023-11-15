@@ -1,6 +1,5 @@
-import Footer from "../../components/Footer/Footer";
-import Marquee from "../../components/Marquee/Marquee";
 import ShoppingCart from "../../components/ShopingCart/ShopingCart";
+import HeaderOnlyLayout from "../../components/layouts/HeaderOnlyLayout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
@@ -20,9 +19,7 @@ function ShopingCard() {
 
   const handleRemoveItem = async (itemId) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:4000/cart/removeItem/${itemId}`
-      );
+      await axios.delete(`http://localhost:4000/cart/removeItem/${itemId}`);
 
       // Handle success
       alert("Item removed successfully:");
@@ -57,8 +54,7 @@ function ShopingCard() {
   }, [currentUser._id]);
 
   return (
-    <div>
-      <Marquee />
+    <HeaderOnlyLayout>
       <div className="py-8">
         <ShoppingCart
           cartItems={cartItems}
@@ -68,8 +64,7 @@ function ShopingCard() {
           onContinueShopping={handleContinueShopping}
         />
       </div>
-      <Footer />
-    </div>
+    </HeaderOnlyLayout>
   );
 }
 

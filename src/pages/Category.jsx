@@ -2,46 +2,48 @@ import DefaultLayout from "../components/layouts/DefaultLayout";
 import FourCardsList from "../components/FourCardsList";
 import TwoCardsList from "../components/TwoCardsList";
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
-import Carousel from "../components/Carousel/Carousel";
 import { useState, useEffect } from "react";
 import Dropdown from "../components/Dropdown/Dropdown";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductByCategory } from "../store/categoryActions";
 
-const images = [
-  "https://beechtree.pk/cdn/shop/files/Web_Banner_Desktop_13.jpg?v=1699256988",
-  "https://beechtree.pk/cdn/shop/files/Web_Banner_Desktop_outerwear.jpg?v=1699012714",
-  "https://pk.sapphireonline.pk/cdn/shop/files/HOME-web-banners.webp?v=1698908393&width=1400",
-];
-const links = [
-  {
-    current: true,
-    href: "#",
-    name: "Home",
-  },
-  {
-    current: false,
-    href: "#",
-    name: "Women",
-  },
-];
-const HomePage = () => {
+const Category = () => {
   const [view, setView] = useState(4);
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const { products, loading, error } = useSelector((state) => state.category);
 
-  // console.log(currentUser, "currentUser", isAuthenticated);
-
+  const pathname = location.pathname;
+  const parts = pathname.split("/");
+  const categoryName = parts[2];
   useEffect(() => {
-    try {
-      axios
-        .get("http://localhost:4000/productInfo/getallproducts")
-        .then((response) => {
-          setProducts(response.data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    dispatch(fetchProductByCategory(categoryName));
+  }, [dispatch, categoryName]);
 
+  console.log(products, "productsproducts");
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  if (!products) {
+    return <p>Product not found</p>;
+  }
+  const links = [
+    {
+      current: true,
+      href: "#",
+      name: "Home",
+    },
+    {
+      current: false,
+      href: "#",
+      name: categoryName,
+    },
+  ];
   const priceFilter = (value) => {
     try {
       axios
@@ -50,7 +52,7 @@ const HomePage = () => {
             value
         )
         .then((response) => {
-          setProducts(response.data);
+          setFilteredProducts(response.data);
         });
     } catch (error) {
       console.log(error);
@@ -59,13 +61,10 @@ const HomePage = () => {
 
   return (
     <DefaultLayout>
-      <div className="">
-        <Carousel
-          images={images}
-          duration={700}
-          showIndicators={true}
-          showControls={true}
-        />
+      <div className="px-6 py-6">
+        <h3 className=" text-lg font-medium">
+          Search Result for {categoryName}{" "}
+        </h3>
       </div>
 
       <Breadcrumb showDivider={false} links={links}>
@@ -93,8 +92,6 @@ const HomePage = () => {
               { label: "Price High To Low", value: "Price High To Low" },
             ]}
             onOptionClicked={(value) => priceFilter(value)}
-            size={"lg"}
-            className="w-28 border"
           />
         </div>
       </Breadcrumb>
@@ -107,4 +104,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Category;

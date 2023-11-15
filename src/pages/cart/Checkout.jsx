@@ -1,6 +1,7 @@
 import CheckoutForm from "../../components/Forms/CheckoutForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import HeaderOnlyLayout from "../../components/layouts/HeaderOnlyLayout";
 
 function Checkout() {
   const [products, setProducts] = useState([]);
@@ -29,9 +30,9 @@ function Checkout() {
   }, [currentUser._id]);
 
   return (
-    <div>
+    <HeaderOnlyLayout>
       <CheckoutForm onSubmit={handleFormSubmit} products={products} />
-    </div>
+    </HeaderOnlyLayout>
   );
 }
 
