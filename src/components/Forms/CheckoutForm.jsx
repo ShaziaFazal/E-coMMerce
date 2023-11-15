@@ -10,7 +10,9 @@ function ProductItem({ imageSrc, productName, productDetails, price }) {
       />
       <div className="flex w-full flex-col px-4 py-4">
         <span className="font-semibold">{productName}</span>
-        <span className="float-right text-gray-400">{productDetails}</span>
+        <span className="float-right text-gray-400  line-clamp-2">
+          {productDetails}
+        </span>
         <p className="text-lg font-bold">{`PKR ${price}`}</p>
       </div>
     </div>
@@ -32,7 +34,7 @@ const PaymentOption = ({ id, label, description, checked, onChange }) => {
       <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4">
         <div className="ml-5">
           <span className="mt-2 font-semibold">{label}</span>
-          <p className="text-slate-500 text-sm leading-6">{description}</p>
+          <p className="text-slate-500 text-sm leading-6 ">{description}</p>
         </div>
       </label>
     </div>
@@ -99,7 +101,7 @@ const CheckoutForm = ({ onSubmit, products }) => {
     });
   }, [formData, products]);
   return (
-    <div>
+    <div className=" py-20">
       <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
         <div className="px-4 pt-8">
           <p className="text-xl font-medium">Order Summary</p>

@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import Footer from "../Footer/Footer";
 import MainBar from "../MainBar/MainBar";
-import Marquee from "../Marquee/Marquee";
-import Navbar from "../NavBar/Navbar";
 import axios from "axios";
 
-const DefaultLayout = (props) => {
+const HeaderOnlyLayout = (props) => {
   const handleLogIn = async (email, password) => {
     await axios
       .post("http://localhost:4000/signinSystem/signin/", {
@@ -42,21 +40,18 @@ const DefaultLayout = (props) => {
 
   return (
     <div>
-      <div className="fixed z-10 w-full  shadow-sm">
-        <Marquee />
+      <div className="fixed z-10 w-full border-b">
         <MainBar
           handleLogOut={handleLogOut}
           handleLogIn={handleLogIn}
           handleSignUp={handleSignUp}
         />
       </div>
-      <div className="pt-[160px]">
-        <Navbar />
-        <div>{props.children}</div>
-        <Footer />
-      </div>
+
+      <div className="pt-[30px]">{props.children}</div>
+      <Footer />
     </div>
   );
 };
 
-export default DefaultLayout;
+export default HeaderOnlyLayout;

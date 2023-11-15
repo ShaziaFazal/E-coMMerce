@@ -198,7 +198,7 @@ export const MainBar = (props) => {
           <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 32 32"
+              viewBox="0 0 30 30"
               fill="currentColor"
               className="flex-shrink-0 w-5 h-5 rounded-full dark:text-gray-900"
             >
@@ -240,7 +240,7 @@ export const MainBar = (props) => {
               <div>
                 <button
                   type="button"
-                  className="relative flex rounded-full bg-gray-800 text-sm "
+                  className="relative flex rounded-full bg-gray-800 text-sm w-8 h-8 "
                   id="user-menu-button"
                   aria-expanded="false"
                   aria-haspopup="true"
@@ -249,9 +249,11 @@ export const MainBar = (props) => {
                   <span className="absolute -inset-1.5"></span>
 
                   <img
-                    className="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
+                    className=" rounded-full"
+                    src={`https://eu.ui-avatars.com/api/?name=${currentUser?.username
+                      .split(" ")
+                      .join("+")}&size=100`}
+                    alt="profile"
                   />
                 </button>
               </div>
