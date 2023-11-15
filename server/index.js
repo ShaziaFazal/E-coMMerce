@@ -14,10 +14,12 @@ const cartApis = require("./routes/Cart");
 const cors = require("cors");
 dotenv.config();
 
+
 let port = 4000;
 app.use(cors());
-
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json());
+
 
 app.use(express.static("public"));
 
@@ -28,6 +30,7 @@ app.use("/orderInfo", orderAdder);
 app.use("/postFeedback", contactApis);
 // cart apis
 app.use("/cart", cartApis);
+
 
 app.listen(port, "localhost", () => {
   console.log(`The server is up! at http://localhost:${port}`);

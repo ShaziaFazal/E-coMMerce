@@ -8,5 +8,5 @@ router.get("/getallproducts", productController.getProducts);
 router.get("/getProductById", productController.getProductById);
 router.get("/getProductsAccordingToPriceFilter",productController.getProductsAccordingToPriceFilter);
 router.get("/getProductByCategory", productController.getProductsByCategory);
-
+router.post("/payment",productController.postPayment)
 module.exports = router;
