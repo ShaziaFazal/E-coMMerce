@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /** @type {import('tailwindcss').Config} */
 // import colors from 'tailwindcss/colors';
+const defaultTheme = require('tailwindcss/defaultTheme')
 // export const mode = 'jit';
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -24,6 +25,10 @@ export default {
           "100%": { transform: "translateX(-100%)" },
         },
       },
+      screens: {
+        'xs': '150px',
+        ...defaultTheme.screens,
+      }
     },
   },
   plugins: [
