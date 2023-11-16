@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from 'react'
-
+import React, { useState } from 'react';
+import {Link} from "react-router-dom";
 const ProductList = (props) => {
+    const [imgUrl,setImageURL] = useState("");
     return (
         <>
             <main className=" py-10 lg:pl-72">
@@ -16,12 +17,8 @@ const ProductList = (props) => {
                                 </p>
                             </div>
                             <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                                <button
-                                    type="button"
-                                    className="block rounded-md bg-gray-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
-                                >
-                                    Add product
-                                </button>
+                                <Link to="/admin/dashboard/addproducts" 
+                                className="block rounded-md bg-gray-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"> Add product </Link>
                             </div>
                         </div>
                         <div className="mt-8 flow-root">
@@ -49,24 +46,23 @@ const ProductList = (props) => {
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
                                             {props.data.map((product) => (
-                                                <tr key={product.email}>
+                                                <tr key={product._id}>
                                                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                                                         <div className="flex items-center">
                                                             <div className="h-11 w-11 flex-shrink-0">
-                                                                <img className="h-11 w-11 rounded-full" src={product.images} alt="" />
+                                                                <img className="h-11 w-11 rounded-full" src={product.images[0].src} alt="" />
                                                             </div>
                                                             <div className="ml-4">
                                                                 <div className="font-medium text-gray-900">{product.title}</div>
                                                             </div>
-                                                        </div>
+                                                        </div> 
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                         <div className="text-gray-900">{product.fabric}</div>
                                                     </td>
+                                                    
                                                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                            <div className="text-gray-900">{product.size}</div>
-                                                        </td>
+                                                        <div className="text-gray-900">{product.size}</div>
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                         <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">

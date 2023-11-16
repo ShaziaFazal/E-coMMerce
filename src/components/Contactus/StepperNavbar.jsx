@@ -10,11 +10,11 @@ export default function StepperNavbar() {
 					<a 
 					className="flex items-center"> 
 						<img src= 
-"https://www.svgrepo.com/show/343884/ecommerce-online-shopping.svg"
-							className="mr-2 w- h-7"
+"https://www.svgrepo.com/show/507423/shopping-cart.svg"
+							className="mr-2 w-9 h-*"
 							alt="GFG Logo" /> 
 						<span className="self-center text-2xl font-semibold "> 
-							Ecommerce Site
+							E-Commerce
 						</span> 
 					</a> 
 					<div className="items-center justify-between hidden 
