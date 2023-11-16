@@ -17,17 +17,17 @@ function ShoppingCart({
           <div key={index} className="flex gap-8  mb-8">
             <div className=" h-40 overflow-hidden">
               <img
-                src={item.product_id.images[0].src}
+                src={item.product_id?.images[0].src}
                 alt={index}
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="mt-4">
               <h3 className="text-lg font-medium text-gray-900">
-                <a href="#">{item.product_id.title}</a>
+                <a href="#">{item.product_id?.title}</a>
               </h3>
               <p className="text-sm text-gray-500">{item.color}</p>
-              <p className="mt-2">PKR {item.product_id.price.toFixed(2)}</p>
+              <p className="mt-2">PKR {item.product_id?.price.toFixed(2)}</p>
               <p className="mt-2">Qty: {item.quantity}</p>
               <button
                 type="button"

@@ -9,11 +9,10 @@ function ShopingCard() {
   const searchParams = new URLSearchParams(location.search);
   const productId = searchParams.get("productId");
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
   const [cartItems, setCartItems] = useState([]);
 
   const subtotal = cartItems.reduce(
-    (total, item) => total + item.product_id.price * item.quantity,
+    (total, item) => total + item.product_id?.price * item.quantity,
     0
   );
 

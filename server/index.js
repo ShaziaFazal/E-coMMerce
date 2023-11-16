@@ -11,15 +11,16 @@ const quantityAdder = require("./routes/quantity");
 const orderAdder = require("./routes/Order");
 const contactApis = require("./routes/ContactUs");
 const cartApis = require("./routes/Cart");
+const checkoutRoutes = require("./routes/checkOut");
+
 const cors = require("cors");
 dotenv.config();
 
-
 let port = 4000;
+app.use(express.json());
 app.use(cors());
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 app.use(express.static("public"));
 
@@ -31,6 +32,7 @@ app.use("/postFeedback", contactApis);
 // cart apis
 app.use("/cart", cartApis);
 
+app.use("/api", checkoutRoutes);
 
 app.listen(port, "localhost", () => {
   console.log(`The server is up! at http://localhost:${port}`);
