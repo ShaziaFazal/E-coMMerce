@@ -14,10 +14,10 @@ function Checkout() {
       );
       alert("Thank You, your Order is placed successfully");
       window.location.href = "/";
-      return response.data; // You can return the response if needed
+      return response.data; 
     } catch (error) {
       console.error("Error creating order:", error);
-      throw error; // You can handle the error as needed
+      throw error; 
     }
   };
 
