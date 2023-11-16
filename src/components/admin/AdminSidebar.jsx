@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { Link } from 'react-router-dom'
 import {
     Bars3Icon,
     CheckBadgeIcon,
@@ -67,10 +68,19 @@ const AdminSideBar = () => {
                                         </button>
                                     </div>
                                 </Transition.Child>
-                                {/* Sidebar component, swap this element with another sidebar if you like */}
+                                
                                 <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-600 px-6 pb-2">
                                     <div className="flex h-16 shrink-0 items-center">
-                                        <p>Brand Logo</p>
+                                    <a 
+                                        className="flex items-center"> 
+                                            <img src= 
+                    "https://www.svgrepo.com/show/507423/shopping-cart.svg"
+                                                className="mr-2 w-9 h-*"
+                                                alt="GFG Logo" /> 
+                                            <span className="self-center text-2xl font-semibold "> 
+                                                E-Commerce
+                                            </span> 
+                                    </a> 
                                     </div>
                                     <nav className="flex flex-1 flex-col">
                                         <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -115,7 +125,7 @@ const AdminSideBar = () => {
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-600 px-6">
                     <div className="flex h-16 shrink-0 items-center">
                         <div>
-                            <h1>Brand Logo</h1>
+                            {/* <h1>Brand Logo</h1> */}
                         </div>
                     </div>
                     <nav className="flex flex-1 flex-col">
@@ -124,8 +134,8 @@ const AdminSideBar = () => {
                                 <ul role="list" className="-mx-2 space-y-1">
                                     {navigation.map((item) => (
                                         <li key={item.name}>
-                                            <a
-                                                href={item.href}
+                                            <Link
+                                                to={item.href}
                                                 className={classNames(
                                                     item.current
                                                         ? 'bg-gray-700 text-white'
@@ -141,25 +151,27 @@ const AdminSideBar = () => {
                                                     aria-hidden="true"
                                                 />
                                                 {item.name}
-                                            </a>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
                             </li>
 
                             <li className="-mx-6 mt-auto">
-                                <a
-                                    href="#"
+                                <Link
+                                    to="http://localhost:5173/"
                                     className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-gray-700"
                                 >
-                                    <img
-                                        className="h-8 w-8 rounded-full bg-gray-700"
-                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        alt=""
-                                    />
                                     <span className="sr-only">Your profile</span>
-                                    <span aria-hidden="true">Tom Cook</span>
-                                </a>
+                                    <span className="flex items-center"> 
+                                            <img src= "https://www.svgrepo.com/show/507423/shopping-cart.svg"
+                                                className="mr-2 w-9 h-*"
+                                                alt="GFG Logo" /> 
+                                            <span className="self-center text-2xl font-semibold "> 
+                                                E-Commerce
+                                            </span> 
+                                             </span>   
+                                </Link>
                             </li>
                         </ul>
                     </nav>
@@ -174,11 +186,11 @@ const AdminSideBar = () => {
                 <div className="flex-1 text-sm font-semibold leading-6 text-white">Dashboard</div>
                 <a href="#">
                     <span className="sr-only">Your profile</span>
-                    <img
+                    {/* <img
                         className="h-8 w-8 rounded-full bg-gray-700"
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
-                    />
+                    /> */}
                 </a>
             </div>
         </>

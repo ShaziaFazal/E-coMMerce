@@ -100,6 +100,19 @@ const getProductsByCategory = async (req, res) => {
   }
 };
 
+const deleteById=async(req , res)=> {
+  try{
+    let {id} = req.query;
+  let dataAgainstId = await Product.findByIdAndDelete({_id:id})
+  if(!dataAgainstId){
+      return res.status(404).json({message:"DATA NOT FOUND"})
+  }
+  res.json({message:"delete successful"})
+  } catch (error) {
+      res.status(500).json({error:error.message})
+  }
+}
+
 
 const postPayment = async(req,res)=>{
   let {amount, id} = req.body;
@@ -136,5 +149,6 @@ module.exports = {
   getProductById,
   getProductsAccordingToPriceFilter,
   getProductsByCategory,
-  postPayment
+  postPayment,
+  deleteById
 };

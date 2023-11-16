@@ -28,10 +28,7 @@ const App = () => {
           <Route path="/admin/dashboard/customers" element={<AdminUsers />} />
           <Route path="/admin/dashboard/products" element={<AdminProducts />} />
           <Route path="/admin/dashboard/orders" element={<AdminOrders />} />
-          <Route
-            path="/admin/dashboard/addproducts"
-            element={<AdminProductForm />}
-          />
+          <Route path="/admin/dashboard/addproducts" element={<AdminProductForm />} />
           <Route path="/detail/:id" element={<DetailsPage />} />
           <Route path="/cart/shoppingcart" element={<ShopingCard />} />
           <Route path="/cart/checkout" element={<Checkout />} />

@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom"
 const sections = [
     {
         name: 'Customers',
@@ -34,13 +34,13 @@ const Dashboard = () => {
                             className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8"
                         >
                             {sections.map((section) => (
-                                <a key={section.name} href={section.link}>
+                                <Link key={section.name} to={section.link}>
                                     <li className="rounded-2xl bg-gray-600 px-8 py-10">
                                         <img className="mx-auto h-48 w-48 rounded-full md:h-56 md:w-56" src={section.imageUrl} alt="" />
                                         <h3 className="mt-6 text-base font-semibold leading-7 tracking-tight text-white">{section.name}</h3>
                                         <p className="text-sm leading-6 text-gray-400"></p>
                                     </li>
-                                </a>
+                                </Link>
 
                             ))}
                         </ul>
