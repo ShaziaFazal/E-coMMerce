@@ -10,7 +10,7 @@ const Footer = () => {
           >
             <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-400">
             <img src= 
-"https://www.svgrepo.com/show/507423/shopping-cart.svg"
+"https://www.svgrepo.com/show/395704/store-shop-shopping-bag.svg"
 							className="mr-2 w-9 h-9"
 							alt="GFG Logo" /> 
             </div>

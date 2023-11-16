@@ -29,8 +29,8 @@ const Card = (props) => {
             </div>
           )}
           {props.product.discount && (
-            <div className="mx-2 my-2 absolute inset-x-0 bottom-0 rounded-bl-lg rounded-br-lg sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-24 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg">
-              <p className="mt-6 flex px-2 flex-shrink-0 items-center justify-center rounded-md  bg-red-600 text-base font-small text-white sm:ml-8 sm:mt-0 lg:ml-0 lg:w-full">
+            <div className="mx-2 my-2 absolute inset-x-0 bottom-0 rounded-bl-lg  rounded-br-lg sm:flex sm:items-start xs:flex xs:items-start md:flex md:items-start  lg:inset-x-auto lg:inset-y-auto  lg:flex-col lg:w-auto lg:items-start lg:rounded-br-none lg:rounded-tl-lg">
+              <p className="mt-6 flex px-2 flex-shrink-0 items-center justify-center rounded-md  bg-red-600 text-base font-small text-white sm:ml-0 sm:mt-0 xs:ml-0 xs:mt-0 lg:ml-0 lg:w-full">
                 {props.product.discount}
               </p>
             </div>
@@ -53,3 +53,4 @@ const Card = (props) => {
 };
 
 export default Card;
+
