@@ -360,9 +360,9 @@ export const MainBar = (props) => {
               Login
             </button>
           )}
-          {access_token && (
+          {currentUser && (
             <>
-              {isAdmin ? (
+              {currentUser.role === ("Admin" || "admin") ? (
                 <a
                   href="/admin/dashboard/addproducts"
                   className="border bg-orange-500 hover:bg-orange-300 cursor-pointer px-4 py-2 text-center whitespace-nowrap"
