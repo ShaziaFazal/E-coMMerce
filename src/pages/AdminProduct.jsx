@@ -17,6 +17,22 @@ import ProductList from "../components/admin/ProductsList"
 export default function AdminProducts() {
 
     const [products, setProducts] = useState([]);
+    const [showAlert, setShowAlert] = useState(false);
+
+    const deleteProduct = async (productId) => {
+        try {
+            const response = await axios.delete(`http://localhost:4000/productInfo/deleteProdById?id=${productId}`);
+            console.log(response.data);
+
+            if (response.status === 200) {
+                setShowAlert(true);
+            } else {
+                console.error('Error deleting product:', response.status);
+            }
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
+    };
 
     useEffect(() => {
         try {
@@ -35,7 +51,7 @@ export default function AdminProducts() {
     return (
         <>
             <AdminSideBar />
-            <ProductList data={products} />
+            <ProductList data={products} deleteProductById={deleteProduct} showAlert={showAlert} setShowAlert={setShowAlert} />
         </>
     )
 }

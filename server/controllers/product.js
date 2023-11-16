@@ -100,22 +100,23 @@ const getProductsByCategory = async (req, res) => {
   }
 };
 
-const deleteById=async(req , res)=> {
-  try{
-    let {id} = req.query;
-  let dataAgainstId = await Product.findByIdAndDelete({_id:id})
-  if(!dataAgainstId){
-      return res.status(404).json({message:"DATA NOT FOUND"})
-  }
-  res.json({message:"delete successful"})
+const deleteById = async (req, res) => {
+  try {
+    let { id } = req.query;
+    console.log(id)
+    let dataAgainstId = await Product.findByIdAndDelete({ _id: id })
+    if (!dataAgainstId) {
+      return res.status(404).json({ message: "DATA NOT FOUND" })
+    }
+    res.json({ message: "delete successful" })
   } catch (error) {
-      res.status(500).json({error:error.message})
+    res.status(500).json({ error: error.message })
   }
 }
 
 
-const postPayment = async(req,res)=>{
-  let {amount, id} = req.body;
+const postPayment = async (req, res) => {
+  let { amount, id } = req.body;
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
@@ -126,14 +127,14 @@ const postPayment = async(req,res)=>{
       confirm: true
 
     })
-    console.log("Payment:",payment);
-    
+    console.log("Payment:", payment);
+
     res.json({
       message: "Payment Successful",
       success: true
     })
   } catch (error) {
-    console.log("Error",error);
+    console.log("Error", error);
     res.json({
       message: "Payment Failed",
       success: false
