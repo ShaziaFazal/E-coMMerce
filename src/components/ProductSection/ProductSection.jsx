@@ -5,7 +5,7 @@ import axios from "axios";
 export const ProductSection = ({ product }) => {
   const [displayImg, setDisplayImg] = useState(product?.images[0].src);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
+  console.log(product);
   const handleClick = (e) => {
     setDisplayImg(e.target.src);
   };

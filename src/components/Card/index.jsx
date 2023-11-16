@@ -3,7 +3,6 @@
 import React from "react";
 
 const Card = (props) => {
-  console.log(props, "props");
   return (
     <a href={`/detail/${props.product._id}`}>
       <div className="border mb-4">
