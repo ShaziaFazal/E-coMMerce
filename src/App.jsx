@@ -16,9 +16,7 @@ import CancelPage from "./pages/cart/CancelPage";
 
 const App = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const isAdmin = (currentUser && currentUser.role === "admin") || "Admin";
-
-  console.log(currentUser, currentUser);
+  const isAdmin = currentUser && currentUser.role === ("admin" || "Admin");
 
   return (
     <>
@@ -26,9 +24,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/category/:category" element={<Category />} />
-          <Route path="/detail" element={<DetailsPage />} />
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/contactus" element={<Contactus />} />
+          <Route path="/detail/:id" element={<DetailsPage />} />
 
           {isAdmin ? (
             <>
@@ -49,7 +47,6 @@ const App = () => {
             </>
           ) : (
             <>
-              <Route path="/detail/:id" element={<DetailsPage />} />
               <Route path="/cart/shoppingcart" element={<ShopingCard />} />
               <Route path="/cart/checkout" element={<Checkout />} />
               <Route path="/cart/success" element={<SuccessPage />} />

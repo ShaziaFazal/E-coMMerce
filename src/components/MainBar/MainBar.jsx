@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Model from "../Model/model";
-import Button from "../Button/Button";
 
 export const MainBar = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -9,10 +8,9 @@ export const MainBar = (props) => {
   const [data, setData] = useState({ username: "", email: "", password: "" });
   const [isOpen, setIsOpen] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const access_token = localStorage.getItem("token");
   const [isMenuOpen, setMenuOpen] = useState(false);
 
-  const isAdmin = (currentUser && currentUser.role === "admin") || "Admin";
+  const isAdmin = currentUser && currentUser.role === ("admin" || "Admin");
 
   const closeSignUpModal = () => {
     setIsOpen(false);
