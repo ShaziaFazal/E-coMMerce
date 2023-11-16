@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/Details";
 import AdminProducts from "./pages/AdminProduct";
@@ -15,7 +15,11 @@ import SuccessPage from "./pages/cart/SuccessPage";
 import CancelPage from "./pages/cart/CancelPage";
 
 const App = () => {
-  // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const isAdmin = (currentUser && currentUser.role === "admin") || "Admin";
+
+  console.log(currentUser, currentUser);
+
   return (
     <>
       <BrowserRouter>
@@ -25,19 +29,36 @@ const App = () => {
           <Route path="/detail" element={<DetailsPage />} />
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/contactus" element={<Contactus />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/dashboard/customers" element={<AdminUsers />} />
-          <Route path="/admin/dashboard/products" element={<AdminProducts />} />
-          <Route path="/admin/dashboard/orders" element={<AdminOrders />} />
-          <Route
-            path="/admin/dashboard/addproducts"
-            element={<AdminProductForm />}
-          />
-          <Route path="/detail/:id" element={<DetailsPage />} />
-          <Route path="/cart/shoppingcart" element={<ShopingCard />} />
-          <Route path="/cart/checkout" element={<Checkout />} />
-          <Route path="/cart/success" element={<SuccessPage />} />
-          <Route path="/cart/cancel" element={<CancelPage />} />
+
+          {isAdmin ? (
+            <>
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route
+                path="/admin/dashboard/customers"
+                element={<AdminUsers />}
+              />
+              <Route
+                path="/admin/dashboard/products"
+                element={<AdminProducts />}
+              />
+              <Route path="/admin/dashboard/orders" element={<AdminOrders />} />
+              <Route
+                path="/admin/dashboard/addproducts"
+                element={<AdminProductForm />}
+              />
+            </>
+          ) : (
+            <>
+              <Route path="/detail/:id" element={<DetailsPage />} />
+              <Route path="/cart/shoppingcart" element={<ShopingCard />} />
+              <Route path="/cart/checkout" element={<Checkout />} />
+              <Route path="/cart/success" element={<SuccessPage />} />
+              <Route path="/cart/cancel" element={<CancelPage />} />
+            </>
+          )}
+
+          {/* Default route if none of the above conditions are met */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </>
