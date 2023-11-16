@@ -12,6 +12,8 @@ import Contactus from "./pages/Contactus";
 import StripeContainer from "./components/Stripe/StripeContainer";
 import AdminProductForm from "./pages/AdminProductForm";
 import Category from "./pages/Category";
+import SuccessPage from "./pages/cart/SuccessPage";
+import CancelPage from "./pages/cart/CancelPage";
 
 const App = () => {
   // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -35,7 +37,8 @@ const App = () => {
           <Route path="/detail/:id" element={<DetailsPage />} />
           <Route path="/cart/shoppingcart" element={<ShopingCard />} />
           <Route path="/cart/checkout" element={<Checkout />} />
-          <Route path="/cart/Stripe" element={<StripeContainer />} />
+          <Route path="/cart/success" element={<SuccessPage />} />
+          <Route path="/cart/cancel" element={<CancelPage />} />
         </Routes>
       </BrowserRouter>
     </>

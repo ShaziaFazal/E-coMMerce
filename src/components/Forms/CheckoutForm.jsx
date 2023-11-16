@@ -21,23 +21,19 @@ function ProductItem({ imageSrc, productName, productDetails, price }) {
 
 const PaymentOption = ({ id, label, description, checked, onChange }) => {
   return (
-    <div className="relative">
+    <label className="flex items-center p-4 border rounded-md cursor-pointer">
       <input
-        className="peer hidden"
-        id={id}
         type="radio"
-        name="radio"
+        id={id}
         checked={checked}
         onChange={() => onChange(id)}
+        className="mr-4 w-6 h-6 "
       />
-      <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-      <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4">
-        <div className="ml-5">
-          <span className="mt-2 font-semibold">{label}</span>
-          <p className="text-slate-500 text-sm leading-6 ">{description}</p>
-        </div>
-      </label>
-    </div>
+      <div>
+        <span className="font-semibold">{label}</span>
+        <span className="block text-gray-400">{description}</span>
+      </div>
+    </label>
   );
 };
 
@@ -48,7 +44,7 @@ const CheckoutForm = ({ onSubmit, products }) => {
     email: "",
     address: "",
     contactNumber: "",
-    paymentMethod: "cashOnDelivery",
+    paymentMethod: "",
     totalPrice: "",
   });
 
@@ -83,23 +79,19 @@ const CheckoutForm = ({ onSubmit, products }) => {
 
   const handleOptionChange = (optionId) => {
     setSelectedOption(optionId);
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       paymentMethod: optionId,
-    });
-    const totalPrice = calculateTotal(products);
-    setFormData({
-      ...formData,
-      totalPrice: totalPrice,
-    });
+    }));
   };
   useEffect(() => {
     const totalPrice = calculateTotal(products);
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       totalPrice: totalPrice,
-    });
-  }, [formData, products]);
+    }));
+  }, [products]);
+
   return (
     <div className=" py-20">
       <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
@@ -121,7 +113,7 @@ const CheckoutForm = ({ onSubmit, products }) => {
             ))}
           </div>
           <p className="mt-8 text-lg font-medium">Shipping Methods</p>
-          <form className="mt-5 grid gap-6">
+          <div className="mt-5 grid gap-6">
             <PaymentOption
               id="cashOnDelivery"
               label="Cash On Delivery"
@@ -136,7 +128,7 @@ const CheckoutForm = ({ onSubmit, products }) => {
               checked={selectedOption === "cardPayment"}
               onChange={handleOptionChange}
             />
-          </form>
+          </div>
         </div>
         <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
           <p className="text-xl font-medium">Payment Details</p>
