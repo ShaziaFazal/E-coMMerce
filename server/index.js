@@ -12,6 +12,7 @@ const orderAdder = require("./routes/Order");
 const contactApis = require("./routes/ContactUs");
 const cartApis = require("./routes/Cart");
 const checkoutRoutes = require("./routes/checkOut");
+const categoryApis = require("./routes/Category");
 
 const cors = require("cors");
 dotenv.config();
@@ -33,7 +34,7 @@ app.use("/postFeedback", contactApis);
 app.use("/cart", cartApis);
 
 app.use("/api", checkoutRoutes);
-
+app.use("/categoryMaker",categoryApis);
 app.listen(port, "localhost", () => {
   console.log(`The server is up! at http://localhost:${port}`);
 });
