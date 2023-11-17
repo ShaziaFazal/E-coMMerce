@@ -132,31 +132,6 @@ const deleteById = async (req, res) => {
   }
 };
 
-// const postPayment = async (req, res) => {
-//   let { amount, id } = req.body;
-//   try {
-//     const payment = await stripe.paymentIntents.create({
-//       amount,
-//       currency: "USD",
-//       description: "The Store",
-//       payment_method: id,
-//       return_url: "http://localhost:5173/",
-//       confirm: true,
-//     });
-//     console.log("Payment:", payment);
-
-//     res.json({
-//       message: "Payment Successful",
-//       success: true,
-//     });
-//   } catch (error) {
-//     console.log("Error", error);
-//     res.json({
-//       message: "Payment Failed",
-//       success: false,
-//     });
-//   }
-// };
 
 const searchProducts = async (req, res) => {
   try {
