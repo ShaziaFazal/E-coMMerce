@@ -1,15 +1,12 @@
-import ShoppingCart from "../../components/ShopingCart/ShopingCart";
-import HeaderOnlyLayout from "../../components/layouts/HeaderOnlyLayout";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import ShoppingCart from "../../components/ShopingCart/ShopingCart";
+import HeaderOnlyLayout from "../../components/layouts/HeaderOnlyLayout";
 
 function ShopingCard() {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const productId = searchParams.get("productId");
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const subtotal = cartItems.reduce(
     (total, item) => total + item.product_id?.price * item.quantity,
@@ -49,19 +46,30 @@ function ShopingCard() {
       .get(`http://localhost:4000/cart/cartitems/${currentUser._id}`)
       .then((response) => {
         setCartItems(response.data);
+        setLoading(false); // Set loading to false once data is fetched
+      })
+      .catch((error) => {
+        console.error("Error fetching cart items:", error.message);
+        setLoading(false); // Set loading to false in case of an error
       });
   }, [currentUser._id]);
 
   return (
     <HeaderOnlyLayout>
       <div className="py-8">
-        <ShoppingCart
-          cartItems={cartItems}
-          subtotal={subtotal}
-          onRemoveItem={handleRemoveItem}
-          onCheckout={handleCheckout}
-          onContinueShopping={handleContinueShopping}
-        />
+        {loading ? (
+          <div className=" py-24">
+            <p>Loading...</p>
+          </div>
+        ) : (
+          <ShoppingCart
+            cartItems={cartItems}
+            subtotal={subtotal}
+            onRemoveItem={handleRemoveItem}
+            onCheckout={handleCheckout}
+            onContinueShopping={handleContinueShopping}
+          />
+        )}
       </div>
     </HeaderOnlyLayout>
   );

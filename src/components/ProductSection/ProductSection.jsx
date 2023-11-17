@@ -10,12 +10,19 @@ export const ProductSection = ({ product }) => {
     setDisplayImg(e.target.src);
   };
   const handleAddToCart = async (quantity, productId, selectedSize) => {
-    if (currentUser) {
-      if (selectedSize === null) {
-        alert("please select size");
+    try {
+      if (!currentUser) {
+        // Redirect to home page if user is not logged in
+        window.location.href = "/";
         return;
       }
-      const responce = await axios.post(
+      if (product.category !== "Accessories" && !selectedSize) {
+        // Show an alert if size is not selected for non-accessory products
+        alert("Please select a size");
+        return;
+      }
+
+      const response = await axios.post(
         "http://localhost:4000/cart/addToCart",
         {
           user_id: currentUser._id,
@@ -24,15 +31,22 @@ export const ProductSection = ({ product }) => {
           selectedSize: parseInt(selectedSize),
         }
       );
-      if (responce.status === 201) {
-        alert(responce.data.message);
+
+      if (response.status === 201) {
+        // Show success message
+        alert(response.data.message);
       }
+
+      // Redirect to the shopping cart page with query parameters
       const url = `/cart/shoppingcart?productId=${productId}&quantity=${quantity}&size=${selectedSize}`;
       window.location.href = url;
-    } else {
-      window.location.href = "/";
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      // Handle error, e.g., show an alert
+      alert("Error adding to cart. Please try again.");
     }
   };
+
   return (
     <div className="flex flex-row gap-7 mt-20">
       <div className="w-24 flex flex-col ml-20">

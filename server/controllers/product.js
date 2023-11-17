@@ -1,5 +1,5 @@
 const Product = require("../models/product");
-const stripe = require('stripe')(process.env.STRIPE_SECRET_TEST);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 const addProduct = async (req, res) => {
   try {
     const {
@@ -89,12 +89,30 @@ const getProductsAccordingToPriceFilter = async (req, res) => {
 
 //gets all data according to category
 const getProductsByCategory = async (req, res) => {
-  const { category } = req.query;
-  console.log(category);
+  const { category, sort } = req.query;
+  console.log(category, sort);
+
   try {
-    const response = await Product.find({ category: category });
-    //console.log("response",response);
-    res.status(201).send(response);
+    let query = { category };
+
+    // Check if sort parameter is provided
+    if (sort) {
+      let sortOption = {};
+
+      if (sort === "lowToHigh") {
+        sortOption = { price: 1 }; // Ascending order
+      } else if (sort === "highToLow") {
+        sortOption = { price: -1 }; // Descending order
+      }
+
+      // Apply sorting to the query
+      const response = await Product.find(query).sort(sortOption);
+      res.status(200).send(response);
+    } else {
+      // If no sorting, simply retrieve products by category
+      const response = await Product.find(query);
+      res.status(200).send(response);
+    }
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
@@ -103,46 +121,66 @@ const getProductsByCategory = async (req, res) => {
 const deleteById = async (req, res) => {
   try {
     let { id } = req.query;
-    console.log(id)
-    let dataAgainstId = await Product.findByIdAndDelete({ _id: id })
+    console.log(id);
+    let dataAgainstId = await Product.findByIdAndDelete({ _id: id });
     if (!dataAgainstId) {
-      return res.status(404).json({ message: "DATA NOT FOUND" })
+      return res.status(404).json({ message: "DATA NOT FOUND" });
     }
-    res.json({ message: "delete successful" })
+    res.json({ message: "delete successful" });
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ error: error.message });
   }
-}
+};
 
+// const postPayment = async (req, res) => {
+//   let { amount, id } = req.body;
+//   try {
+//     const payment = await stripe.paymentIntents.create({
+//       amount,
+//       currency: "USD",
+//       description: "The Store",
+//       payment_method: id,
+//       return_url: "http://localhost:5173/",
+//       confirm: true,
+//     });
+//     console.log("Payment:", payment);
 
-const postPayment = async (req, res) => {
-  let { amount, id } = req.body;
+//     res.json({
+//       message: "Payment Successful",
+//       success: true,
+//     });
+//   } catch (error) {
+//     console.log("Error", error);
+//     res.json({
+//       message: "Payment Failed",
+//       success: false,
+//     });
+//   }
+// };
+
+const searchProducts = async (req, res) => {
   try {
-    const payment = await stripe.paymentIntents.create({
-      amount,
-      currency: "USD",
-      description: "The Store",
-      payment_method: id,
-      return_url: 'http://localhost:5173/',
-      confirm: true
+    const { term } = req.query;
+    let query;
 
-    })
-    console.log("Payment:", payment);
+    if (term) {
+      query = {
+        $or: [
+          { title: { $regex: new RegExp(term, "i") } },
+          { category: { $regex: new RegExp(term, "i") } },
+          { brand: { $regex: new RegExp(term, "i") } },
+        ],
+      };
+    } else {
+      query = {};
+    }
 
-    res.json({
-      message: "Payment Successful",
-      success: true
-    })
+    const response = await Product.find(query);
+    res.status(200).send(response);
   } catch (error) {
-    console.log("Error", error);
-    res.json({
-      message: "Payment Failed",
-      success: false
-    })
-
+    res.status(500).send({ error: error.message });
   }
-}
-
+};
 
 module.exports = {
   addProduct,
@@ -150,6 +188,7 @@ module.exports = {
   getProductById,
   getProductsAccordingToPriceFilter,
   getProductsByCategory,
-  postPayment,
-  deleteById
+  // postPayment,
+  deleteById,
+  searchProducts,
 };

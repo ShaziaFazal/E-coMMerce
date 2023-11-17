@@ -6,6 +6,7 @@ import Carousel from "../components/Carousel/Carousel";
 import { useState, useEffect } from "react";
 import Dropdown from "../components/Dropdown/Dropdown";
 import axios from "axios";
+import Navbar from "../components/NavBar/Navbar";
 
 const images = [
   "https://beechtree.pk/cdn/shop/files/Web_Banner_Desktop_13.jpg?v=1699256988",
@@ -27,8 +28,7 @@ const links = [
 const HomePage = () => {
   const [view, setView] = useState(4);
   const [products, setProducts] = useState([]);
-
-  // console.log(currentUser, "currentUser", isAuthenticated);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -36,14 +36,18 @@ const HomePage = () => {
         .get("http://localhost:4000/productInfo/getallproducts")
         .then((response) => {
           setProducts(response.data);
+          setLoading(false); // Set loading to false once data is fetched
         });
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   }, []);
 
   const priceFilter = (value) => {
     try {
+      setLoading(true);
+
       axios
         .get(
           "http://localhost:4000/productInfo/getProductsAccordingToPriceFilter?filter=" +
@@ -51,9 +55,13 @@ const HomePage = () => {
         )
         .then((response) => {
           setProducts(response.data);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -98,7 +106,9 @@ const HomePage = () => {
           />
         </div>
       </Breadcrumb>
-      {view === 2 ? (
+      {loading ? (
+        <p>Loading...</p> // Render a loading message while data is being fetched
+      ) : view === 2 ? (
         <TwoCardsList products={products} />
       ) : (
         <FourCardsList products={products} />

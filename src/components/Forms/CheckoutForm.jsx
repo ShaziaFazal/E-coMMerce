@@ -37,7 +37,7 @@ const PaymentOption = ({ id, label, description, checked, onChange }) => {
   );
 };
 
-const CheckoutForm = ({ onSubmit, products }) => {
+const CheckoutForm = ({ onSubmit, products, loading }) => {
   const [selectedOption, setSelectedOption] = useState("cashOnDelivery");
   const [formData, setFormData] = useState({
     name: "",
@@ -102,15 +102,19 @@ const CheckoutForm = ({ onSubmit, products }) => {
           </p>
 
           <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-            {products.map((product, index) => (
-              <ProductItem
-                key={index}
-                imageSrc={product.product_id.images[0].src}
-                productName={product.product_id.title}
-                productDetails={product.product_id.description}
-                price={product.product_id.price}
-              />
-            ))}
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              products.map((product, index) => (
+                <ProductItem
+                  key={index}
+                  imageSrc={product.product_id.images[0].src}
+                  productName={product.product_id.title}
+                  productDetails={product.product_id.description}
+                  price={product.product_id.price}
+                />
+              ))
+            )}
           </div>
           <p className="mt-8 text-lg font-medium">Shipping Methods</p>
           <div className="mt-5 grid gap-6">

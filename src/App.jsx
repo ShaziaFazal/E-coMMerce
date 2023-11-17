@@ -13,10 +13,11 @@ import AdminProductForm from "./pages/AdminProductForm";
 import Category from "./pages/Category";
 import SuccessPage from "./pages/cart/SuccessPage";
 import CancelPage from "./pages/cart/CancelPage";
+import ItemsPage from "./pages/ItemsPage";
 
 const App = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const isAdmin = currentUser && currentUser.role === ("admin" || "Admin");
+  const isAdmin = currentUser && currentUser.username === "Admin";
 
   return (
     <>
@@ -27,7 +28,7 @@ const App = () => {
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/contactus" element={<Contactus />} />
           <Route path="/detail/:id" element={<DetailsPage />} />
-
+          <Route path="/items/:term" element={<ItemsPage />} />
           {isAdmin ? (
             <>
               <Route path="/admin/dashboard" element={<AdminDashboard />} />

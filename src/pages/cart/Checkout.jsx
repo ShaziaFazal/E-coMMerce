@@ -6,7 +6,9 @@ import { loadStripe } from "@stripe/stripe-js";
 
 function Checkout() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
   const handleFormSubmit = async (formData) => {
     if (formData.paymentMethod === "cardPayment") {
       const stripe = await loadStripe(
@@ -71,12 +73,21 @@ function Checkout() {
       .get(`http://localhost:4000/cart/cartitems/${currentUser._id}`)
       .then((response) => {
         setProducts(response.data);
+        setLoading(false); // Set loading to false once data is fetched
+      })
+      .catch((error) => {
+        console.error("Error fetching cart items:", error.message);
+        setLoading(false); // Set loading to false in case of an error
       });
   }, [currentUser._id]);
 
   return (
     <HeaderOnlyLayout>
-      <CheckoutForm onSubmit={handleFormSubmit} products={products} />
+      <CheckoutForm
+        onSubmit={handleFormSubmit}
+        products={products}
+        loading={loading}
+      />
     </HeaderOnlyLayout>
   );
 }

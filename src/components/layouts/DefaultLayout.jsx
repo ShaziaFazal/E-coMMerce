@@ -2,8 +2,8 @@
 import Footer from "../Footer/Footer";
 import MainBar from "../MainBar/MainBar";
 import Marquee from "../Marquee/Marquee";
-import Navbar from "../NavBar/Navbar";
 import axios from "axios";
+import Navbar from "../NavBar/Navbar";
 
 const DefaultLayout = (props) => {
   const handleLogIn = async (email, password) => {
@@ -52,6 +52,7 @@ const DefaultLayout = (props) => {
       </div>
       <div className="pt-[160px]">
         <Navbar />
+
         <div>{props.children}</div>
         <Footer />
       </div>
