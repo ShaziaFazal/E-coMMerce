@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <div>
       <nav>
-        <div className="flex flex-1 items-stretch justify-center sm:items-stretch sm:justify-center my-2 ">
+        <div className="flex justify-center items-stretch  sm:items-stretch sm:justify-center ">
           <NavItem value="Women" label="Women" />
           <NavItem value="Men" label="Men" />
           <NavItem value="Kids" label="Kids" />

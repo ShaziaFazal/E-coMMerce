@@ -9,8 +9,8 @@ export const MainBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const [isMenuOpen, setMenuOpen] = useState(false);
-
-  const isAdmin = currentUser && currentUser.role === ("admin" || "Admin");
+  const isAdmin = currentUser && currentUser.username === "Admin";
+  const [term, setTerm] = useState("");
 
   const closeSignUpModal = () => {
     setIsOpen(false);
@@ -196,26 +196,31 @@ export const MainBar = (props) => {
           href="/"
           className="flex justify-center space-x-3 lg:justify-start ml-2"
         >
-          <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-400">
-          <img src= 
-"https://www.svgrepo.com/show/395704/store-shop-shopping-bag.svg"
-							className="mr-2 w-9 h-9"
-							alt="GFG Logo" /> 
-          
+          <div className="flex items-center justify-center w-12 h-12 rounded-full ">
+            <img
+              src="https://www.svgrepo.com/show/395704/store-shop-shopping-bag.svg"
+              className="mr-2 w-9 h-9"
+              alt="GFG Logo"
+            />
           </div>
           <span className="self-center text-2xl font-semibold">E-Commerce</span>
         </a>
 
         <div className="flex gap-3 items-center  ">
-          {/* <div className="relative flex w-full flex-wrap items-stretch rounded border border-solid border-neutral-300 ">
+          <div className="relative flex  flex-wrap items-stretch rounded border border-solid border-neutral-300 ">
             <input
               type="search"
               className="relative m-0 block min-w-0 flex-auto bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out"
               placeholder="Search"
               aria-label="Search"
               aria-describedby="button-addon2"
+              value={term}
+              onChange={(e) => {
+                setTerm(e.target.value);
+              }}
             />
             <span
+              onClick={() => (window.location.href = `/items/${term}`)}
               className="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-gray-900"
               id="basic-addon2"
             >
@@ -232,7 +237,7 @@ export const MainBar = (props) => {
                 />
               </svg>
             </span>
-          </div> */}
+          </div>
           {currentUser ? (
             <div className="relative ml-3">
               <div>
@@ -257,99 +262,95 @@ export const MainBar = (props) => {
               </div>
               {isMenuOpen && (
                 <div>
-                  {isAdmin ? (
-                    <div
-                      className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="user-menu-button"
-                      tabIndex="-1"
-                    >
-                      <a
-                        href="/admin/dashboard"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabIndex="-1"
-                        id="user-menu-item-0"
-                      >
-                        Dashboard
-                      </a>
-                      <a
-                        href="/admin/dashboard/addproducts"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabIndex="-1"
-                        id="user-menu-item-0"
-                      >
-                        Add Product
-                      </a>
-                      <a
-                        href="/admin/dashboard/customersd"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabIndex="-1"
-                        id="user-menu-item-0"
-                      >
-                        Users
-                      </a>
-                      <a
-                        href="/admin/dashboard/products"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabIndex="-1"
-                        id="user-menu-item-0"
-                      >
-                        Products
-                      </a>
-                      <a
-                        href="/admin/dashboard/orders"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabIndex="-1"
-                        id="user-menu-item-0"
-                      >
-                        Orders
-                      </a>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabIndex="-1"
-                        id="user-menu-item-2"
-                        onClick={props.handleLogOut}
-                      >
-                        Sign out
-                      </a>
-                    </div>
-                  ) : (
-                    <div
-                      className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="user-menu-button"
-                      tabIndex="-1"
-                    >
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabIndex="-1"
-                        id="user-menu-item-2"
-                        onClick={props.handleLogOut}
-                      >
-                        Sign out
-                      </a>
-                      <a
-                        href="/cart/shoppingcart"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabIndex="-1"
-                        id="user-menu-item-0"
-                      >
-                        My Cart
-                      </a>
-                    </div>
-                  )}
+                  <div
+                    className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu-button"
+                    tabIndex="-1"
+                  >
+                    {isAdmin ? (
+                      <>
+                        <a
+                          href="/admin/dashboard"
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-0"
+                        >
+                          Dashboard
+                        </a>
+                        <a
+                          href="/admin/dashboard/addproducts"
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-0"
+                        >
+                          Add Product
+                        </a>
+                        <a
+                          href="/admin/dashboard/customersd"
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-0"
+                        >
+                          Users
+                        </a>
+                        <a
+                          href="/admin/dashboard/products"
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-0"
+                        >
+                          Products
+                        </a>
+                        <a
+                          href="/admin/dashboard/orders"
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-0"
+                        >
+                          Orders
+                        </a>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-2"
+                          onClick={props.handleLogOut}
+                        >
+                          Sign out
+                        </a>
+                      </>
+                    ) : (
+                      <>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-2"
+                          onClick={props.handleLogOut}
+                        >
+                          Sign out
+                        </a>
+                        <a
+                          href="/cart/shoppingcart"
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-0"
+                        >
+                          My Cart
+                        </a>
+                      </>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
@@ -360,7 +361,7 @@ export const MainBar = (props) => {
           )}
           {currentUser && (
             <>
-              {currentUser.role === ("Admin" || "admin") ? (
+              {isAdmin ? (
                 <a
                   href="/admin/dashboard/addproducts"
                   className="border bg-orange-500 hover:bg-orange-300 cursor-pointer px-4 py-2 text-center whitespace-nowrap"

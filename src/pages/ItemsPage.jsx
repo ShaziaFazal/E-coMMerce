@@ -3,35 +3,34 @@ import FourCardsList from "../components/FourCardsList";
 import TwoCardsList from "../components/TwoCardsList";
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
 import { useState, useEffect } from "react";
-import Dropdown from "../components/Dropdown/Dropdown";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProductByCategory } from "../store/categoryActions";
 
-const Category = () => {
+const ItemsPage = () => {
   const [view, setView] = useState(4);
-  const dispatch = useDispatch();
-  const [filter, setFilter] = useState("");
-  const { products, loading, error } = useSelector((state) => state.category);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true); // Initialize loading state to true
 
   const pathname = location.pathname;
   const parts = pathname.split("/");
-  const categoryName = parts[2];
+  const searchTerm = parts[2];
+
   useEffect(() => {
-    dispatch(fetchProductByCategory(categoryName, filter));
-  }, [dispatch, categoryName, filter]);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/productInfo/products/search?term=${searchTerm}`
+        );
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error searching products:", error);
+      } finally {
+        setLoading(false); // Set loading to false after data is fetched or in case of an error
+      }
+    };
 
-  console.log(products, "productsproducts");
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+    fetchData();
+  }, [searchTerm]);
 
-  if (!products) {
-    return <p>Product not found</p>;
-  }
   const links = [
     {
       current: true,
@@ -41,22 +40,24 @@ const Category = () => {
     {
       current: false,
       href: "#",
-      name: categoryName,
+      name: searchTerm,
     },
   ];
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <DefaultLayout>
       <div className="px-6 py-6">
-        <h3 className=" text-lg font-medium">
-          Search Result for {categoryName}{" "}
-        </h3>
+        <h3 className="text-lg font-medium">Search Result for {searchTerm}</h3>
       </div>
 
       <Breadcrumb showDivider={false} links={links}>
         <div className="flex gap-6">
           <div className="flex gap-3">
-            <span>view</span>
+            <span>View</span>
             <button
               onClick={() => setView(2)}
               className="bg-gray-800 text-white px-2"
@@ -70,17 +71,9 @@ const Category = () => {
               4
             </button>
           </div>
-
-          <Dropdown
-            placeholder={"Filter +"}
-            options={[
-              { label: "Price Low To High", value: "lowToHigh" },
-              { label: "Price High To Low", value: "highToLow" },
-            ]}
-            onOptionClicked={(value) => setFilter(value)}
-          />
         </div>
       </Breadcrumb>
+
       {view === 2 ? (
         <TwoCardsList products={products} />
       ) : (
@@ -90,4 +83,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default ItemsPage;

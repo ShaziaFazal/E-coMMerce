@@ -8,11 +8,12 @@ const Footer = () => {
             href="/"
             className="flex justify-center space-x-3 lg:justify-start"
           >
-            <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-400">
-            <img src= 
-"https://www.svgrepo.com/show/395704/store-shop-shopping-bag.svg"
-							className="mr-2 w-9 h-9"
-							alt="GFG Logo" /> 
+            <div className="flex items-center justify-center w-12 h-12 rounded-full ">
+              <img
+                src="https://www.svgrepo.com/show/395704/store-shop-shopping-bag.svg"
+                className="mr-2 w-9 h-9"
+                alt="GFG Logo"
+              />
             </div>
             <span className="self-center text-2xl font-semibold">
               E-Commerce
