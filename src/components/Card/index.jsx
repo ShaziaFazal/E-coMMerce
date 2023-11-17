@@ -40,9 +40,11 @@ const Card = (props) => {
             {props.product.title || "title goes here"}
           </p>
           <p className="flex justify-between">
-            <span>{props.product.price || "PKR 1600"}</span>
-            <span className="mt-2 text-sm text-black">
-              {props.product.size}
+            <span>PKR {props.product.price || "PKR 1600"}</span>
+            <span className=" text-sm text-black">
+              {props.product.sizes.map((size) => {
+                <span className="text-black">{size.size}</span>;
+              })}
             </span>
           </p>
         </div>
@@ -52,4 +54,3 @@ const Card = (props) => {
 };
 
 export default Card;
-
