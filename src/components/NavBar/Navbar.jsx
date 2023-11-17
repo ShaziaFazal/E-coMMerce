@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 const NavItem = ({ value, label }) => {
   const handleOnClick = () => {
     window.location.href = `/category/${value}`;
@@ -11,6 +14,28 @@ const NavItem = ({ value, label }) => {
 };
 
 const Navbar = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/categoryMaker/getAllCategories"
+        );
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(categories);
+
   return (
     <div>
       <nav>
