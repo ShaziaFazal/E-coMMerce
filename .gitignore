@@ -25,5 +25,5 @@ dist-ssr
 
 # Ignore the .env file in the server directory
 server/.env
-
+/server .env
 .env
